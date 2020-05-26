@@ -305,7 +305,7 @@ edit_sources_list()
 	local SITE=0
 	
 	# show list of countries in alphabetical order
-	gettext "============================== List of countries =============================="; echo
+	gettext "****************************** List of countries ******************************"; echo
 	cat /usr/share/mare/countries.list
 	
 	while [ "$#" -eq 0 ]; do
@@ -317,9 +317,9 @@ edit_sources_list()
 		# check entered country by user in the /usr/share/mare/mirror.list file
 		if [ "$MIRROR_LIST" = "$COUNTRY" ]; then
 			echo ""
-			gettext "================= List of available mirrors ================="; echo
+			gettext "****************** List of available mirrors ******************"; echo
 			gettext "Country                Mirrors                    Ping"; echo
-			echo "==============================================================="
+			echo "***************************************************************"
 			
 			# assign a value to a variable
 			MIRROR=$(sed -n '/'${COUNTRY}'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
@@ -332,6 +332,8 @@ edit_sources_list()
 				PREFIX=$(expr 41 - $WORD_LIGNTH)
 				echo "${COUNTRY} ${MIRROR} ${AVG}" | awk '{printf "%-21s %s %'${PREFIX}'s\n", $1, $2, $3}'
 			done
+			
+			echo -e "***************************************************************\n"
 			
 			# remove the previous value from the variable
 			MIRROR=0
@@ -999,8 +1001,6 @@ configure_dm()
 			sed -i '1a\greeter-setup-script=/usr/bin/numlockx on' /usr/share/lightdm/lightdm.conf.d/01_user.conf
 		fi
 	fi
-
-	gettext "The setting of your Debian GNU/Linux 10 operating system is now complete."; echo
 
 }
 
