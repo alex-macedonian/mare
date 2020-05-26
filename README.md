@@ -28,7 +28,7 @@ one command: mare -f.
 - configures the LightDM display manager
 
 ## Instructions for installing the mare package on your system.	
-1. Download the latest mare package by clicking on the following link: [https://github.com/alex-mocedonian/mare/releases](https://github.com/alex-mocedonian/mare/releases)
+1. Download the latest mare package by clicking on the following link: [https://github.com/alex-macedonian/mare/releases](https://github.com/alex-macedonian/mare/releases)
 2. Go to the directory where you downloaded the mare package, for example with this command: cd Download/
 3. Extract the contents of the archive into the current directory using the following command: tar -xvf mare-3.0.tar.gz
 4. Go to the package directory: cd ./mare-3.0	
