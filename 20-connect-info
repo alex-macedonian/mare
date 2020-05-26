@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# 20-connect-info - connection information for the MOTD
+# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+LINE_PREFIX="   "
+DATE=$(date)
+IFACE=$(ip a | awk 'FNR == 9' | cut -d":" -f2)
+#STATE_IFACE2=$(ip a | awk 'FNR == 7 {print $9}')
+# Here you can add variables.
+STATE_IFACE3=$(ip a | awk 'FNR == 9 {print $9}')
+ACCESS_POINT=$(iwconfig ${IFACE} | awk 'FNR == 2 {print $6}')
+SSID=$(iw ${IFACE} link | awk 'FNR == 2 {print $1, $2}')
+RX=$(iw ${IFACE} link | awk 'FNR == 4 {print $1, $2, $3}')
+TX=$(iw ${IFACE} link | awk 'FNR == 5 {print $1, $2, $3}')
+SIGNAL_LEVEL=$(iw ${IFACE} link | awk 'FNR == 6 {print $2, $3}')
+TX_BITE_RATE=$(iw ${IFACE} link | awk 'FNR == 7 {print $3, $4}')
+
+# Here you can display connection information
+#if [ "$STATE_IFACE2" = UP ]; then
+#
+#else
+#	echo "${LINE_PREFIX}There is no internet connection. Perhaps the interface is not connected."
+#	echo -e "${LINE_PREFIX}To connect it, please  enter the command: ${IFACE}\n"
+#fi;
+
+if [ "$STATE_IFACE3" = UP ]; then
+    echo -e "${LINE_PREFIX}Connection information on as of ${DATE}\n"
+    echo -e "${LINE_PREFIX}Access Point: ${ACCESS_POINT}\t${SSID}"
+    echo -e "${LINE_PREFIX}${RX}\t\t\t${TX}"
+    echo -e "${LINE_PREFIX}Signal level: ${SIGNAL_LEVEL}\t\tTX Bite Rate: ${TX_BITE_RATE}\n"
+else
+    echo "${LINE_PREFIX}There is no internet connection. Perhaps the interface is not connected."
+    echo -e "${LINE_PREFIX}To connect it, please  enter the command: nmcli device connect ${IFACE}.\n"
+fi;

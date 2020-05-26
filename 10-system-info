@@ -1,0 +1,31 @@
+#!/bin/bash
+# 
+# 10-system-info - system information for the MOTD
+# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+LINE_PREFIX="   "
+DATE=$(date)
+ROOT_MOUNT_POINT_INFO=$(df -Th / | awk 'FNR == 2 { print $4 }')
+HOME_MOUNT_POINT_INFO=$(df -Th /home | awk 'FNR == 2 { print $4 }')
+MEMORY_USED_INFO=$(free -h | awk 'FNR == 2 {print $3}')
+SWAP_USED_INFO=$(free -h | awk 'FNR == 3 {print $3}')
+SYSTEM_LOAD=$(cat /proc/loadavg | awk '{print $1}')
+PROCESSES_COUNT=$(cat /proc/loadavg | cut -d"/" -f2 | cut -d" " -f1)
+
+echo -e "${LINE_PREFIX}System information as of ${DATE}\n"
+echo -e "${LINE_PREFIX}System load: ${SYSTEM_LOAD}\t\tProcesses count: ${PROCESSES_COUNT}"
+echo -e "${LINE_PREFIX}Usage of root: ${ROOT_MOUNT_POINT_INFO}\t\tMemory usage: ${MEMORY_USED_INFO}"
+echo -e "${LINE_PREFIX}Usage of home: ${HOME_MOUNT_POINT_INFO}\t\tSwap usege: ${SWAP_USED_INFO}\n"

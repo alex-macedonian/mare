@@ -1,0 +1,673 @@
+# Russian translation for Mare
+# Copyright (c) 2020 Alexandre Popov <amocedonian@gmail.com>
+# This file is distributed under the same license as the mare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mare\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-10 02:54+0300\n"
+"PO-Revision-Date: 2020-05-10 21:13+0300\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Last-Translator: Alexandre Popov <amocedonian@gmail.com>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: mare:114
+msgid "mare: no internet connection"
+msgstr "mare: нет соединения с интернетом"
+
+#: mare:115
+msgid "Establish an Internet connection and try again."
+msgstr "Установите интернет-соединение и попробуйте снова."
+
+#: mare:133
+msgid "elevated user privileges are already configured"
+msgstr "повышенные пользовательские привилегии уже настроены"
+
+#: mare:135
+msgid "configuring elevated user privileges"
+msgstr "настройка повышенных привилегий пользователя"
+
+#: mare:137
+msgid "configuring elevated user privileges is completed"
+msgstr "настройка повышенных привилегий пользователя завершена"
+
+#: mare:154
+msgid "the firmware-atheros package is already installed on your system"
+msgstr "пакет firmware-atheros уже установлен в вашей системе"
+
+#: mare:158
+msgid "installing the firmware-atheros package"
+msgstr "установка пакета firmware-atheros"
+
+#: mare:160
+msgid "firmware-atheros package installed"
+msgstr "пакет firmware-atheros установлен"
+
+#: mare:162
+msgid "the firmware-atheros_20161130-5_all.deb file does not exist"
+msgstr "файл firmware-atheros_20161130-5_all.deb не существует"
+
+#: mare:166
+msgid "you are using a different storage medium information"
+msgstr "вы используете другой носитель информации"
+
+#: mare:172
+msgid "restart the computer to apply the changes"
+msgstr "перезагрузите компьютер, чтобы применить изменения"
+
+#: mare:184
+msgid "random MAC address is already disabled in the NetworkManager"
+msgstr "случайный MAC-адрес уже отключен в NetworkManager"
+
+#: mare:186
+msgid "disabling random mac address in the NetworkManager"
+msgstr "отключение случайного MAC-адреса в NetworkManager"
+
+#: mare:190
+msgid "disabling random mac address in the NetworkManager is completed"
+msgstr "отключение случайного MAC-адреса в NetworkManager завершено"
+
+#: mare:208
+msgid "configuring package sources"
+msgstr "настройка источников пакетов"
+
+#: mare:211
+msgid "configuring package sources is completed"
+msgstr "настройка источников пакетов завершена"
+
+#: mare:222
+msgid "package sources are is already configured"
+msgstr "источники пакетов уже настроены"
+
+#: mare:243
+msgid "Where are you located? Example: United_Kingdom "
+msgstr "Где вы находитесь? Пример: United_Kingdom "
+
+#: mare:251
+msgid "========== List of available mirrors =========="
+msgstr "========== Список доступных зеркал =========="
+
+#: mare:259
+msgid "Country                Mirrors                                  Ping"
+msgstr "Страна                Зеркала                                  Пинг"
+
+#: mare:267
+msgid "Enter the mirror: "
+msgstr "Введите зеркало: "
+
+#: mare:280
+msgid "This mirror is not in the list of available mirrors."
+msgstr "Этого зеркала нет в списке доступных зеркал."
+
+#: mare:286
+msgid "Sorry, there is no mirror for your country."
+msgstr "Извините, для вашей страны нет зеркала."
+
+#: mare:287
+msgid "Please indicate the country closest to you."
+msgstr "Пожалуйста, укажите страну, ближайшую к вам."
+
+#: mare:323
+msgid "the operating system bootloader configurating"
+msgstr "настройка загрузчика операционной системы"
+
+#: mare:327
+msgid "the operating system bootloader configurating is completed"
+msgstr "настройка загрузчика операционной системы завершена"
+
+#: mare:329
+msgid "updating the operating system bootloader configuration"
+msgstr "обновление конфигурации загрузчика операционной системы"
+
+#: mare:331
+msgid "updating the operating system bootloader configuration is completed"
+msgstr "обновление конфигурации загрузчика операционной системы завершено"
+
+#: mare:333
+msgid "the operating system bootloader is already configured"
+msgstr "загрузчик операционной системы уже настроен"
+
+#: mare:347 mare:352
+msgid "the filesystems table configuring"
+msgstr "настройка таблицы файловых систем"
+
+#: mare:350 mare:355
+msgid "the filesystems table configuring is completed"
+msgstr "настройка таблицы файловых систем завершена"
+
+#: mare:357
+msgid "the filesystems table already configured"
+msgstr "таблица файловых систем уже настроена"
+
+#: mare:402
+msgid "the /etc/sysctl.conf file has already been edited"
+msgstr "файл /etc/sysctl.conf уже отредактирован"
+
+#: mare:415 mare:430 mare:445
+msgid "editing the sysctl.conf file that is in the /etc directory"
+msgstr "редактирование файла sysctl.conf, который находится в каталоге /etc"
+
+#: mare:416 mare:431 mare:446
+msgid "inserting blank line into the sysctl.conf file"
+msgstr "вставка пустой строки в файл sysctl.conf"
+
+#: mare:419
+msgid "inserting the line vm.swappiness=30 into the sysctl.conf file"
+msgstr "вставка строки vm.swappiness = 30 в файл sysctl.conf"
+
+#: mare:422
+msgid "inserting the line vm.vfs_cache_pressure=500 into the sysctl.conf file"
+msgstr "вставка строки vm.vfs_cache_pressure = 500 в файл sysctl.conf"
+
+#: mare:424 mare:439 mare:454
+msgid "the sysctl.conf file editing is completed"
+msgstr "редактирование файла sysctl.conf завершено"
+
+#: mare:426 mare:441 mare:456
+msgid "apply the following changes:"
+msgstr "применить следующие изменения:"
+
+#: mare:428 mare:443 mare:458 mare:617 mare:698 mare:705 mare:712 mare:747
+msgid "completed"
+msgstr "завершено"
+
+#: mare:434 mare:449
+msgid "inserting the line vm.swappiness=10 into the sysctl.conf file"
+msgstr "вставка строки vm.swappiness = 10 в файл sysctl.conf"
+
+#: mare:437 mare:452
+msgid "inserting the line vm.vfs_cache_pressure=1000 into the sysctl.conf file"
+msgstr "вставка строки vm.vfs_cache_pressure = 1000 в файл sysctl.conf"
+
+#: mare:486
+msgid "Select a package number and click «ENTER». To exit, click «Q» "
+msgstr "Выберите номер пакета и нажмите «ВВОД». Для выхода нажмите «Q» "
+
+#: mare:491
+msgid "this package is already installed on your system"
+msgstr "этот пакет уже установлен в вашей системе"
+
+#: mare:512 mare:651
+msgid "system cleaning"
+msgstr "очистка системы"
+
+#: mare:515 mare:655
+msgid "system cleaning is completed"
+msgstr "очистка системы завершена"
+
+#: mare:522
+msgid "Number 0. Package: kicad"
+msgstr "Номер 0. Пакет: kicad"
+
+#: mare:523
+msgid "Short description: design of electronic circuits and printed circuit"
+msgstr "Краткое описание: проектирование электронных схем и печатных"
+
+#: mare:524
+msgid "boards. You can get a detailed description of the package by entering"
+msgstr "плат. Вы можете получить подробное описание пакета, введя"
+
+#: mare:525
+msgid "the following at the command line: apt-cache show kicad."
+msgstr "в командной строке следующее: apt-cache show kicad."
+
+#: mare:526
+msgid "Number 1. Package: links"
+msgstr "Номер 1. Пакет: links"
+
+#: mare:527
+msgid "Short description: web browser running in text mode."
+msgstr "Краткое описание: веб-браузер работающий в текстовом режиме."
+
+#: mare:528 mare:532 mare:536 mare:540 mare:544 mare:548 mare:552 mare:556
+#: mare:560 mare:564 mare:572 mare:576 mare:581 mare:585
+msgid "You can get a detailed description of the package by entering"
+msgstr "Вы можете получить подробное описание пакета, введя"
+
+#: mare:529
+msgid "the following at the command line: apt-cache show links."
+msgstr "в командной строке следующее: apt-cache show links."
+
+#: mare:530
+msgid "Number 2. Package: bleachbit"
+msgstr "Номер 2. Пакет: bleachbit"
+
+#: mare:531
+msgid "Short description: delete unnecessary files from the system."
+msgstr "Краткое описание: удаление ненужных файлов из системы."
+
+#: mare:533
+msgid "the following at the command line: apt-cache show bleachbit"
+msgstr "в командной строке следующее: apt-cache show bleachbit"
+
+#: mare:534
+msgid "Number 3. Package: numlockx"
+msgstr "Номер 3. Пакет: numlockx"
+
+#: mare:535
+msgid "Short description: enable NumLock in X11 sessions."
+msgstr "Краткое описание: включает NumLock в сессиях X11."
+
+#: mare:537
+msgid "the following at the command line: apt-cache show numlockx."
+msgstr "в командной строке следующее: apt-cache show numlockx."
+
+#: mare:538
+msgid "Number 4. Package: testdisk"
+msgstr "Номер 4. Пакет: testdisk"
+
+#: mare:539
+msgid "Short description: partition scan, disk and file recovery."
+msgstr "Краткое описание: сканирование разделов, восстановление дисков и файлов."
+
+#: mare:541
+msgid "the following at the command line: apt-cache show testdisk."
+msgstr "в командной строке следующее: apt-cache show testdisk."
+
+#: mare:542
+msgid "Number 5.Package: chromium"
+msgstr "Номер 5. Пакет: chromium"
+
+#: mare:543
+msgid "Short description: web browser."
+msgstr "Краткое описание: веб-браузер."
+
+#: mare:545
+msgid "the following at the command line: apt-cache show chromium."
+msgstr "в командной строке следующее: apt-cache show chromium."
+
+#: mare:546
+msgid "Number 6. Package: chromium-l10n"
+msgstr "Номер 6. Пакет: chromium-l10n"
+
+#: mare:547
+msgid "Short description: web browser localization."
+msgstr "Краткое описание: локализация веб-браузера."
+
+#: mare:549
+msgid "the following at the command line: apt-cache show chromium-l10n."
+msgstr "в командной строке следующее: apt-cache show chromium-l10n."
+
+#: mare:550
+msgid "Number 7. Package: unrar"
+msgstr "Номер 7. Пакет: unrar"
+
+#: mare:551
+msgid "Short description: unarchiver for .rar files (non-free version)."
+msgstr "Краткое описание: распоковщик для файлов .rar (несвободная версия)."
+
+#: mare:553
+msgid "the following at the command line: apt-cache show unrar."
+msgstr "в командной строке следующее: apt-cache show unrar."
+
+#: mare:554
+msgid "Number 8. Package: inxi"
+msgstr "Номер 8. Пакет: inxi"
+
+#: mare:555
+msgid "Short description: full featured system information script."
+msgstr "Краткое описание: полнофункциональный сценарий дающий информацию о системе."
+
+#: mare:557
+msgid "the following at the command line: apt-cache show inxi."
+msgstr "в командной строке следующее: apt-cache show inxi."
+
+#: mare:558
+msgid "Number 9. Package: lshw"
+msgstr "Номер 9. Пакет: lshw"
+
+#: mare:559
+msgid "Short description: hardware configuration information."
+msgstr "Краткое описание: информация о конфигурации оборудования."
+
+#: mare:561
+msgid "the following at the command line: apt-cache show lshw."
+msgstr "в командной строке следующее: apt-cache show lshw."
+
+#: mare:562
+msgid "Number 10. Package: net-tools"
+msgstr "Номер 10. Пакет: net-tools"
+
+#: mare:563
+msgid "Short description: toolkit for NET-3."
+msgstr "Краткое описание: инструментарий для NET-3."
+
+#: mare:565
+msgid "the following at the command line: apt-cache show net-tools."
+msgstr "в командной строке следующее: apt-cache show net-tools."
+
+#: mare:566
+msgid "Number 11. Package: reaver"
+msgstr "Номер 11. Пакет: reaver"
+
+#: mare:567
+msgid "Short description: brute force attack tool against Wifi Protected Setup"
+msgstr "Краткое описание: инструмент атаки методом перебора PIN-кода точки доступа"
+
+#: mare:568
+msgid "PIN number. You can get a detailed description of the package by"
+msgstr "Wifi. Вы можете получить подробное описание пакета, введя"
+
+#: mare:569
+msgid "entering the following at the command line: apt-cache show reaver."
+msgstr "в командной строке следующее: apt-cache show reaver."
+
+#: mare:570
+msgid "Number 12. Package: brasero"
+msgstr "Номер 12. Пакет: brasero"
+
+#: mare:571
+msgid "Short description: CD/DVD burning for GNOME."
+msgstr "Краткое описание: запись CD/DVD дисков для окружения рабочего стола GNOME."
+
+#: mare:573
+msgid "the following at the command line: apt-cache show brasero."
+msgstr "в командной строке следующее: apt-cache show brasero."
+
+#: mare:574
+msgid "Number 13. Package: ttf-mscorefonts-installer"
+msgstr "Номер 13. Пакет: ttf-mscorefonts-installer"
+
+#: mare:575
+msgid "Short description: installer for Microsoft TrueType core fonts."
+msgstr "Краткое описание: установщик основных шрифтов для Microsoft TrueType."
+
+#: mare:577
+msgid "the following at the command line: apt-cache show ttf-mscorefonts-installer."
+msgstr "в командной строке следующее: apt-cache show ttf-mscorefonts-installer."
+
+#: mare:579
+msgid "Number 14. Package: font-freefont-ttf"
+msgstr "Номер 14. Пакет: font-freefont-ttf"
+
+#: mare:580
+msgid "Short description: free Serif, Sans, and Mono fonts in TrueType format."
+msgstr "Краткое описание: бесплатные шрифты Serif, Sans и Mono в формате TrueType."
+
+#: mare:582
+msgid "the following at the command line: apt-cache show font-freefont-ttf."
+msgstr "в командной строке следующее: apt-cache show font-freefont-ttf."
+
+#: mare:583
+msgid "Number 15. Package: fonts-noto"
+msgstr "Номер 15. Пакет: fonts-noto"
+
+#: mare:584
+msgid "Short description: metapackage to pull in all Noto fonts."
+msgstr "Краткое описание: метапакет, чтобы получить все шрифты из набора Noto."
+
+#: mare:586
+msgid "the following at the command line: apt-cache show fonts-noto."
+msgstr "в командной строке следующее: apt-cache show fonts-noto."
+
+#: mare:587
+msgid "Number 16. Package: fonts-noto-core"
+msgstr "Номер 16. Пакет: fonts-noto-core"
+
+#: mare:588 mare:592
+msgid "Short description: 'No Tofu' font families with large Unicode coverage"
+msgstr "Краткое описание: семейства шрифтов No Tofu с большим охватом Unicode"
+
+#: mare:589
+msgid "(core). You can get a detailed description of the package by entering"
+msgstr "(ядро). Вы можете получить подробное описание пакета, введя"
+
+#: mare:590
+msgid "the following at the command line: apt-cache show fonts-noto-core."
+msgstr "в командной строке следующее: apt-cache show fonts-noto-core."
+
+#: mare:591
+msgid "Number 17. Package: fonts-noto-extra"
+msgstr "Номер 17. Пакет: fonts-noto-extra"
+
+#: mare:593
+msgid "(extra). You can get a detailed description of the package by entering"
+msgstr "(дополнительный). Вы можете получить подробное описание пакета, введя"
+
+#: mare:594
+msgid "the following at the command line: apt-cache show fonts-noto-extra."
+msgstr "в командной строке следующее: apt-cache show fonts-noto-extra."
+
+#: mare:608
+msgid "the www.deb-multimedia.org website has already"
+msgstr "веб-сайт www.deb-multimedia.org уже"
+
+#: mare:609
+msgid "been added to the /etc/apt/sources.list file"
+msgstr "добавлен в файл /etc/apt/sources.list"
+
+#: mare:612
+msgid "adding the www.deb-multimedia.org website"
+msgstr "добавление веб-сайта www.deb-multimedia.org"
+
+#: mare:613
+msgid "to the /etc/apt/sources.list file"
+msgstr "в файл /etc/apt/sources.list"
+
+#: mare:623
+msgid "the deb-multimedia-keyring package is already installed on your system"
+msgstr "пакет deb-multimedia-keyring уже установлен в вашей системе"
+
+#: mare:643
+msgid "updating the list of available packages"
+msgstr "обновление списка доступных пакетов"
+
+#: mare:645
+msgid "updating the list of available packages is completed"
+msgstr "обновление списка доступных пакетов завершено"
+
+#: mare:695
+msgid "setting the right to run the 00-welcome-header file"
+msgstr "установка права на запуск файла 00-welcome-header, который"
+
+#: mare:696 mare:703 mare:710
+msgid "located in the following path: /etc/update-motd.d/"
+msgstr "находится по следующему пути: /etc/update-motd.d/"
+
+#: mare:702
+msgid "setting the right to run the 10-system-info file"
+msgstr "установка права на запуск файла 10-system-info"
+
+#: mare:709
+msgid "setting the right to run the 20-connect-info file"
+msgstr "установка права на запуск файла 20-connect-info"
+
+#: mare:730
+msgid "cleaning the motd file that is in the /etc directory"
+msgstr "очистка файла motd, который находится в каталоге /etc"
+
+#: mare:732
+msgid "the motd file cleanup is completed"
+msgstr "очистка файла motd завершена"
+
+#: mare:735
+msgid "the /etc/motd file is empty"
+msgstr "файл /etc /motd уже пустой"
+
+#: mare:744
+msgid "removal of the right to run in the 10-uname file,"
+msgstr "снятие права на запуск в 10-uname файле,"
+
+#: mare:745
+msgid "which is located on the path: /etc/update-motd.d"
+msgstr "который находится по пути: /etc/update-motd.d"
+
+#: mare:750
+msgid "the /etc/update-motd.d/10-uname file"
+msgstr "файл /etc/update-motd.d/10-uname"
+
+#: mare:751
+msgid "does not have the right for execution"
+msgstr "не имеет права на исполнение"
+
+#: mare:759
+msgid "Now in the console, the message about the last user"
+msgstr "Теперь в консоли сообщение о последней аутентификации"
+
+#: mare:760
+msgid "authentication is displayed before the message of the day."
+msgstr "пользователя отображается перед сообщением дня."
+
+#: mare:765
+msgid "Now in the console, the message of the day is displayed"
+msgstr "Теперь в консоли сообщение дня отображается перед"
+
+#: mare:766
+msgid "before the message about the last user authentication."
+msgstr "сообщением о последней аутентификации пользователя."
+
+#: mare:777
+msgid "Display message of the day first? (y or n): "
+msgstr "Показать сообщение дня первым? (y or n): "
+
+#: mare:781
+msgid "editing the login file, which is located along the path: /etc/pam.d"
+msgstr "редактирование файла login, который расположен по пути: /etc/pam.d"
+
+#: mare:787
+msgid "the login file editing is completed"
+msgstr "редактирование файла login завершено"
+
+#: mare:790
+msgid "You have entered an invalid character. Try again."
+msgstr "Вы ввели недопустимый символ. Попробуйте еще раз."
+
+#: mare:805
+msgid "the numlockx package is already installed on your system"
+msgstr "пакет numlockx уже установлен в вашей системе"
+
+#: mare:811
+msgid "the configuration file for LightDM already exists"
+msgstr "конфигурационный файл для LightDM уже существует"
+
+#: mare:813
+msgid "creating a configuration file for LightDM"
+msgstr "создание конфигурационного файла для LightDM"
+
+#: mare:817
+msgid "creating a configuration file for LightDM is completed"
+msgstr "создание конфигурационного файла для LightDM завершено"
+
+#: mare:826
+msgid "Usage: mare [OPTION]"
+msgstr "Использование: mare [OPTION]"
+
+#: mare:827
+msgid "Performs various settings in Debian GNU/Linux 10 after installation."
+msgstr "Выполняет разные настройки в Debian GNU/Linux 10 после установки."
+
+#: mare:828
+msgid "Namely:"
+msgstr "А именно:"
+
+#: mare:829
+msgid "  configures elevated privileges for the user;"
+msgstr "  настраивает повышенные привилегии для пользователя;"
+
+#: mare:830
+msgid "  configures USB WIFI adapter TP-LINK TL-WN722N;"
+msgstr "  настраивает USB-адаптер WIFI TP-LINK TL-WN722N;"
+
+#: mare:831
+msgid "  configures packages sources and update"
+msgstr "  настраивает источники пакетов и обновляет"
+
+#: mare:832
+msgid "  the system by updating packages;"
+msgstr "  систему путем обновления пакетов;"
+
+#: mare:833
+msgid "  configures the bootloader of the operating system;"
+msgstr "  настраивает загрузчик операционной системы;"
+
+#: mare:834
+msgid "  configures filesystems table;"
+msgstr "  настраивает таблицу файловых систем;"
+
+#: mare:835
+msgid "  improves system performance;"
+msgstr "  улучшает производительность системы;"
+
+#: mare:836
+msgid "  sets up additional packages;"
+msgstr "  устанавливает дополнительные пакеты;"
+
+#: mare:837
+msgid "  sets up additional codecs;"
+msgstr "  устанавливает дополнительные кодеки;"
+
+#: mare:838
+msgid "  configures the message of the day;"
+msgstr "  настраивает сообщение дня;"
+
+#: mare:839
+msgid "  configures the LightDM display manager."
+msgstr "  настраивает диспетчер дисплея LightDM."
+
+#: mare:840
+msgid "  -c --conf    configure the operating system"
+msgstr "  -c --conf    настроить операционную систему"
+
+#: mare:841
+msgid "  -h --help    show this help and exit"
+msgstr "  -h --help    показать эту страницу справки и выйти"
+
+#: mare:842
+msgid "  -v --version show version information and exit"
+msgstr "  -v --version показать информацию о версии и выйти"
+
+#: mare:843
+msgid "Example:"
+msgstr "Пример:"
+
+#: mare:844
+msgid "  mare -c configure the operating system."
+msgstr "  mare -c настроить операционную систему."
+
+#: mare:852
+msgid "Mare version 2.0"
+msgstr "Mare версия 2.0"
+
+#: mare:853
+msgid "Copyright (C) 2019 Alexandre Popov. All rights reserved."
+msgstr "Авторское право (C) Попов Александр. Все права защищены."
+
+#: mare:854
+msgid "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>."
+msgstr "Лицензия GPLv3+: GNU GPL версии 3 или новее <http://gnu.org/licenses/gpl.html>."
+
+#: mare:855
+msgid "This is free software: you are free to change and redistribute it."
+msgstr "Это свободное ПО: вы можете изменять и распространять его."
+
+#: mare:856
+msgid "There is NO WARRANTY, to the extent permitted by law."
+msgstr "Нет НИКАКИХ ГАРАНТИЙ до степени, разрешённой законом."
+
+#: mare:866
+msgid "mare: you are using a different distribution GNU/Linux"
+msgstr "mare: вы используете другой дистрибутив GNU/Linux"
+
+#: mare:907
+msgid "Welcome to the setup wizard for your system."
+msgstr "Добро пожаловать в мастер настройки вашей системы."
+
+#: mare:908
+msgid "For help using the wizard, enter the command:"
+msgstr "Чтобы получить справку по использованию мастера, введите команду:"
+
+#: mare:894 mare:898
+msgid "mare: wrong key — "
+msgstr "mare: неправильный ключ — "
+
+#: mare:895 mare:899
+msgid "On command «mare --help» one can get additional information."
+msgstr "По команде «mare --help» можно получить дополнительную информацию."
