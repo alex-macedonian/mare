@@ -1,3 +1,8 @@
+## Mare 4.0 ()
+
+	script menu added
+	the script is divided into separate modules
+
 ## Mare 3.0 (20200527)
 
 	A mirror list display function added
