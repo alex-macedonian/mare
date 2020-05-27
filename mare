@@ -23,10 +23,10 @@
 #################################
 
 # Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
+TEXTDOMAINDIR=/usr/share/locale
+export TEXTDOMAINDIR
+TEXTDOMAIN=mare
+export TEXTDOMAIN
 
 #
 COMMAND="$1"
@@ -396,11 +396,11 @@ install_micro_programs()
 	local LIBGLX_MESA=$(dpkg -l libglx-mesa0 2> /dev/null | awk 'FNR == 8 {print $2}')
 	local CPU=$(lspci | grep Host | awk 'FNR == 2 {print $8}')
 
-	echo
+	echo ""
 	gettext "Installing drivers for video cards from"; echo
 	gettext "different manufacturers as well as microcode"; echo
 	gettext "for Intel and AMD processors."; echo
-	echo
+	echo ""
 	# Install free drivers for video cards AMD/ATI.
 	# Installing free drivers for AMD/ATI video cards
 	# is preferable, as they better support hardware  
@@ -445,7 +445,7 @@ install_micro_programs()
 	# behavior as documented in. 
 	if [ "$CPU" = "[AMD]" ]; then
 	apt-get -y install amd64-microcode
-	echo
+	echo ""
 	gettext "IT IS VERY IMPORTANT! If you are not running the"; echo
 	gettext "X Window System, then restart the computer now."; echo
 	gettext "Press enter ..."; read
@@ -489,13 +489,13 @@ configure_fstab()
 	local OPTIONS=0
 	local STRING=0
 
-	echo
+	echo ""
 	gettext "Here you can specify the parameters for mounting the hard"; echo
 	gettext "drive to fine-tune them. Parameters: errors=remount-ro"; echo
 	gettext "is best left unchanged. For example, you can specify them"; echo
 	gettext "like this: rw,relatime,errors=remount-ro. See mount(8)"; echo
 	gettext "for more information."; echo
-	echo
+	echo ""
 	
 	# show all lines of the file and number them
 	sed -n -e '1,$p' -e '/$/=' /etc/fstab
@@ -574,7 +574,7 @@ install_additional_packages()
 	local LIBREOFFICE_CORE_PACKGE=$(dpkg -l 2> /dev/null | grep libreoffice-core | awk 'FNR == 1 {print $2}')
 	local GIMP_PACKGE=$(dpkg -l 2> /dev/null | grep gimp | awk 'FNR == 1 {print $2}')
 
-	echo
+	echo ""
 	gettext "Installing additional packages that are not shipped with"; echo
 	gettext "the Debian GNU/Linux 10 operating system distribution kit."; echo
 	gettext "You can select any package from the list for its subsequent"; echo
@@ -639,7 +639,7 @@ install_additional_packages()
 possible_packages() 
 {
 
-	echo
+	echo ""
 	gettext "Number 0. Package: skype."; echo
 	gettext "Short description: free proprietary software with closed source,"; echo
 	gettext "providing text, voice and video communication over the Internet"; echo
@@ -800,7 +800,7 @@ possible_packages()
 	gettext "Short description: 'No Tofu' font families with large Unicode coverage"; echo
 	gettext "(extra). You can get a detailed description of the package by entering"; echo
 	gettext "the following at the command line: apt-cache show fonts-noto-extra."; echo
-	echo
+	echo ""
 
 }
 
@@ -812,11 +812,11 @@ preparing_to_install_additional_codecs()
 	local STRING_MMEDIA=$(sed -n '19,20p' /etc/apt/sources.list)
 	local SITE_MMEDIA="http://www.deb-multimedia.org"
 
-	echo
+	echo ""
 	gettext "Preparing to install additional codecs that are not"; echo
 	gettext "shipped with the Debian GNU/Linux 10 operating system"; echo
 	gettext "distribution."; echo
-	echo
+	echo ""
 
 	# check contents of sources.list file
 	# if the necessary lines exist in it, then inform the user about it
@@ -922,11 +922,11 @@ preparation_for_set_motd()
 
 	local LOGIN=$(awk 'FNR == 91 {print}' /etc/pam.d/login)
 
-	echo
+	echo ""
 	gettext "Setting up a dynamic message of the day. This is necessary"; echo
 	gettext "so that your console, after authentication, displays a"; echo
 	gettext "greeting and useful information about your operating system."; echo
-	echo
+	echo ""
 
 	# check file contents
 	# if the file is not empty, clear it
@@ -1014,9 +1014,9 @@ usage()
 	gettext "  configures wireless network;"; echo
 	gettext "  creates a new Wi-Fi connection after rebooting the system;"; echo
 	gettext "  configures elevated privileges for the user;"; echo
-	gettext "  configures packages sources and update;"; echo
-	gettext "  installs micro programs for your system;"; echo
+	gettext "  configures packages sources and update"; echo
 	gettext "  the system by updating packages;"; echo
+	gettext "  installs micro programs for your system;"; echo
 	gettext "  configures the bootloader of the operating system;"; echo
 	gettext "  configures filesystems table;"; echo
 	gettext "  improves system performance;"; echo

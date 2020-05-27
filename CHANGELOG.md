@@ -1,4 +1,4 @@
-## Mare 3.0 (2020)
+## Mare 3.0 (20200527)
 
 	A mirror list display function added
 	Package sources configuration function enhanced
