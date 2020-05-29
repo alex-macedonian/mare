@@ -82,13 +82,17 @@ edit_sources_list()
 		
 		# check entered country by user in the /usr/share/mare/mirror.list file
 		if [ "$MIRROR_LIST" = "$COUNTRY" ]; then
+		
+			gettext "Choosing a Debian repository mirror."; echo;
+			gettext "When choosing it, be guided by the delay"; echo
+			gettext "time located behind the mirror."; echo; echo
 			
 			# assign a value to a variable
 			MIRROR=$(sed -n '/'${COUNTRY}'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
 			
 			# show the list of mirrors for the specified country
 			for MIRROR in $MIRROR; do
-				AVG=$(ping -c 5 ${MIRROR} | awk 'FNR == 10' | cut -d"/" -f6 )
+				AVG=$(ping -c 5 -i 0.2 -q ${MIRROR} | awk 'FNR == 5' | cut -d"/" -f6)
 				if [ -z "$AVG" ]; then
 					AVG=0
 				fi
@@ -104,7 +108,7 @@ edit_sources_list()
 			MIRROR=0
 			
 			while [ "$#" -eq 0 ]; do
-				gettext "Enter the mirror: "
+				gettext "Enter a low latency mirror: "
 				read MIRROR
 				# assign a value to a variable
 				LIST=$(sed -n '/'$MIRROR'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
