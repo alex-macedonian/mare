@@ -107,7 +107,7 @@ do
 		/usr/share/mare/dm.sh
 		;;
 		H | h )
-		/usr/share/mare/help.sh
+		man mare
 		;;
 		V | v )
 		/usr/share/mare/release.sh
