@@ -46,6 +46,7 @@ fi
 # endless loop creates a script menu
 while :
 do
+	gettext "                                                       version 4.0"; echo
 	echo "------------------------------------------------------------------"
 	gettext "          Welcome to the setup wizard for your system."; echo
 	echo "------------------------------------------------------------------"
@@ -62,11 +63,10 @@ do
 	gettext "11 : Configure the message of the day."; echo
 	gettext "12 : Configure the LightDM display manager."; echo
 	gettext " H : Help screen."; echo
-	gettext " V : Version screen."; echo
 	gettext " Q : Exit Menu."; echo
 	echo "------------------------------------------------------------------"
 
-	gettext "Your Choice [1,2,3,4,5,6,7,8,9,10,11,12,H,V,Q] > "
+	gettext "Your Choice [1,2,3,4,5,6,7,8,9,10,11,12,H,Q] > "
 	read CHOICE
 	
 	case "$CHOICE" in
@@ -108,9 +108,6 @@ do
 		;;
 		H | h )
 		man mare
-		;;
-		V | v )
-		/usr/share/mare/release.sh
 		;;
 		Q | q )
 		exit 0
