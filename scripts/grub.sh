@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# grub.sh - configures bootloader operating system
+# grub.sh - configures bootloader operating system Debian GNU/Linux
+# or LMDE
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -21,12 +22,6 @@
 #           VARIABLES           #
 #################################
 
-# Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
-
 # Variable for checking the contents of the  /etc/default/grub file
 TIMEOUT=$(awk 'FNR == 7 {print}' /etc/default/grub)
 
@@ -38,7 +33,7 @@ if [ "$TIMEOUT" = "GRUB_TIMEOUT=5" ]; then
 	sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/GRUB_CMDLINE_LINUX_DEFAULT=""/g' /etc/default/grub
 	update-grub > /dev/null
 else
-	gettext "The operating system bootloader is already configured."; echo
+	echo "The operating system bootloader is already configured."
 fi
 
 ###################### END ######################

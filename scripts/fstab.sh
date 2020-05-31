@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# fstab.sh - configures filesystems table
+# fstab.sh - configures filesystems table in of the operating system
+# Debian GNU/Linux or LMDE
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -21,11 +22,12 @@
 #           VARIABLES           #
 #################################
 
-# Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
+MESAGE="\
+Here you can specify the parameters for mounting the hard
+drive to fine-tune them. Parameters: errors=remount-ro
+is best left unchanged. For example, you can specify them
+like this: rw,relatime,errors=remount-ro. See mount(8)
+for more information."
 
 NUMBER=0
 OPTIONS=0
@@ -33,22 +35,17 @@ STRING=0
 
 ###################### BEGIN ######################
 
-gettext "Here you can specify the parameters for mounting the hard"; echo
-gettext "drive to fine-tune them. Parameters: errors=remount-ro"; echo
-gettext "is best left unchanged. For example, you can specify them"; echo
-gettext "like this: rw,relatime,errors=remount-ro. See mount(8)"; echo
-gettext "for more information."; echo
-echo
+echo -e "${MASAGE}\n"
 	
 # show all lines of the file and number them
 sed -n -e '1,$p' -e '/$/=' /etc/fstab
-echo	
+echo ""	
 
 while
-	gettext "Enter string number («Q» - out): "
+	echo -n "Enter string number («Q» - out): "
 	read NUMBER
 	[ $NUMBER != "q" ]; do
-	gettext "Enter mount options: "
+	echo -n "Enter mount options: "
 	read OPTIONS
 	STRING=$(awk 'FNR == '${NUMBER}' {print $4}' /etc/fstab)
 	sed -i 's/'${STRING}'/'${OPTIONS}'/g' /etc/fstab

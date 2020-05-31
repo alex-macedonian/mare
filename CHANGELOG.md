@@ -1,7 +1,8 @@
-## Mare 4.0 ()
+## Mare 3.1 (2020)
 
-	script menu added
-	the script is divided into separate modules
+	Russian language translation in the format gettext removed
+	Script menu added
+	The script is divided into separate modules
 
 ## Mare 3.0 (20200527)
 

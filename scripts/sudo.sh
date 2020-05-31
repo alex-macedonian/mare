@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# sudo.sh - configures elevated user privileges
+# sudo.sh - configures elevated user privileges in of the operating system
+# Debian GNU/Linux or LMDE
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -21,24 +22,18 @@
 #           VARIABLES           #
 #################################
 
-# Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
-
 # Variable for checking the contents of the /etc/sudoers file
 SUDOERS=$(awk 'FNR == 21 {print}' /etc/sudoers 2> /dev/null)
 NAME=0
 
 ###################### BEGIN ######################
 
-gettext "Enter your username: "
+echo -n "Enter your username: "
 read NAME
 # check  for the presence of the string username	ALL=(ALL: ALL) ALL
 # if such a line exists, then inform the user about it
 if [ -n "$SUDOERS" ]; then
-	gettext "Elevated user privileges are already configured."; echo
+	echo "Elevated user privileges are already configured."
 else
 	sed -i '20a\'${NAME}'	ALL=(ALL:ALL) ALL' /etc/sudoers
 fi

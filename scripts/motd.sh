@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
-# motd.sh - configures the Message of the Day in Debian GNU/Linux
+# motd.sh - configures the Message of the Day in of the operating system
+# Debian GNU/Linux or LMDE
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -18,30 +19,25 @@
 #
 
 #################################
-#           VARIABLES           #
+#           VARIABLE            #
 #################################
 
-# Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
+MESAGE="\
+Setting up a dynamic message of the day. This is necessary
+so that your console, after authentication, displays a
+greeting and useful information about your operating system."
 
 #################################
 # 			FUNCTIONS			#
 #################################
 
-# Preparing to customize the message of the day in Debian GNU/Linux
+# Preparing to customize the message of the day
 preparation_for_set_motd() 
 {
 
 	local LOGIN=$(awk 'FNR == 91 {print}' /etc/pam.d/login)
-
-	echo
-	gettext "Setting up a dynamic message of the day. This is necessary"; echo
-	gettext "so that your console, after authentication, displays a"; echo
-	gettext "greeting and useful information about your operating system."; echo
-	echo
+	
+	echo -e "${MESAGE}\n"
 
 	# check file contents
 	# if the file is not empty, clear it
@@ -57,14 +53,14 @@ preparation_for_set_motd()
 	# if the message about the last user authentication is displayed before the message  
 	# of the day, prompt the user to fix this by editing the /etc/pam.d/login file
 	if [ "$LOGIN" = "session    optional   pam_lastlog.so" ]; then
-		gettext "Now in the console, the message about the last user"; echo
-		gettext "authentication is displayed before the message of the day."; echo; echo
+		echo "Now in the console, the message about the last user"
+		echo -e "authentication is displayed before the message of the day.\n"
 		edit_login
 	# otherwise display a message that the message of the day is displayed 
 	# before the message about the last user authentication
 	else
-		gettext "Now in the console, the message of the day is displayed"; echo
-		gettext "before the message about the last user authentication."; echo; echo
+		echo "Now in the console, the message of the day is displayed"
+		echo -e "before the message about the last user authentication.\n"
 	fi
 	
 }
@@ -76,7 +72,7 @@ edit_login()
 	local CHAR=0
 
 	while
-		gettext "Display message of the day first? (y or n): "
+		echo -n "Display message of the day first? (y or n): "
 		read CHAR
 		[ "$CHAR" != "n" ]; do
 		if [ "$CHAR" = "y" ]; then 
@@ -87,7 +83,7 @@ edit_login()
 			sed -i '89,92d' /etc/pam.d/login
 			break
 		else
-			gettext "Error! You have entered an invalid character."; echo
+			echo "`basename $0:` you have entered an invalid character."
 		fi
 	done
 	
@@ -95,7 +91,7 @@ edit_login()
 
 ###################### BEGIN ######################
 
-# preparing to customize the message of the day in Debian GNU/Linux
+# preparing to customize the message of the day
 preparation_for_set_motd
 
 if [ -f /etc/update-motd.d/00-welcome-header ]; then

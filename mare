@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 #
-# mare - automation of workstation administration under the control of 
-# the operating system Debian GNU/Linux 10
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# mare - menu
+# Copyright (C) 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -22,15 +21,6 @@
 #           VARIABLES           #
 #################################
 
-# Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
-
-# Variable to detect recommended distribution
-DETECT=$(lsb_release -d | awk '{print $2, $3, $4}')
-
 # Variable for selecting an operation in a script
 CHOICE=0
 # Variable to enter the return symbol
@@ -38,40 +28,16 @@ DUMMY=0
 
 ###################### BEGIN ######################
 
-if [ "$DETECT" != "Debian GNU/Linux 10" ]; then
-	gettext "mare: you are using a different distribution GNU/Linux."; echo
-	exit 1
-fi
-
 # endless loop creates a script menu
 while :
 do
-	gettext "                                                       version 4.0"; echo
-	echo "------------------------------------------------------------------"
-	gettext "          Welcome to the setup wizard for your system."; echo
-	echo "------------------------------------------------------------------"
-	gettext " 1 : Configure wireless network."; echo
-	gettext " 2 : Create a new Wi-Fi connection."; echo
-	gettext " 3 : Configure elevated privileges for the user."; echo
-	gettext " 4 : Configure package sources and update system."; echo
-	gettext " 5 : Install micro programs."; echo
-	gettext " 6 : Configure the bootloader of the OS."; echo
-	gettext " 7 : Configure filesystems table."; echo
-	gettext " 8 : Improve system performance."; echo
-	gettext " 9 : Install packages."; echo
-	gettext "10 : Install codecs."; echo
-	gettext "11 : Configure the message of the day."; echo
-	gettext "12 : Configure the LightDM display manager."; echo
-	gettext " H : Help screen."; echo
-	gettext " Q : Exit Menu."; echo
-	echo "------------------------------------------------------------------"
-
-	gettext "Your Choice [1,2,3,4,5,6,7,8,9,10,11,12,H,Q] > "
+	cat /usr/share/mare/data/menu.list
+	echo -n "Your Choice [1,2,3,4,5,6,7,8,9,10,11,12,H,Q] > "
 	read CHOICE
 	
 	case "$CHOICE" in
 		1 )
-		/usr/share/mare/wifi.sh
+		/usr/share/mare/network.sh
 		;;
 		2 )
 		/usr/share/mare/wificon.sh
@@ -113,11 +79,11 @@ do
 		exit 0
 		;;
 		* )
-		gettext "mare: unknown user response"; echo
+		echo "`basename $0:` unknown user response"
 		exit 1
 		;;
 	esac
-	gettext "Hit the return key to continue "
+	echo "Hit the return key to continue "
 	read DUMMY
 	# clear screen
 	clear

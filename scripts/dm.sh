@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
-# dm.sh - configures the LightDM display manager
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# dm.sh - configures the LightDM display manager in of the operating system 
+# Debian GNU/Linux or LMDE
+# Copyright (C) 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,12 +22,6 @@
 #           VARIABLES           #
 #################################
 
-# Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
-
 LIGHTDM=$(dpkg -l 2> /dev/null | grep lightdm | awk 'FNR == 2 {print $2}')
 
 ###################### BEGIN ######################
@@ -34,13 +29,13 @@ LIGHTDM=$(dpkg -l 2> /dev/null | grep lightdm | awk 'FNR == 2 {print $2}')
 # enable numlock by default for LightDM
 if [ -n "$LIGHTDM" ]; then
 	if [ -f /usr/bin/numlockx ]; then
-		gettext "The numlockx package is already installed on your system."; echo
+		echo "The numlockx package is already installed on your system."
 	else
 		apt-get -y install numlockx
 	fi
 	
 	if [ -f /usr/share/lightdm/lightdm.conf.d/01_user.conf ]; then
-		gettext "The configuration file for LightDM already exists."; echo
+		echo "The configuration file for LightDM already exists."
 	else
 		echo " " > /usr/share/lightdm/lightdm.conf.d/01_user.conf
 		sed -i '1c\[Seat:*]' /usr/share/lightdm/lightdm.conf.d/01_user.conf

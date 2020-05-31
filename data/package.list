@@ -1,0 +1,163 @@
+            List of possible packages for installation
+
+Number 0. Package: skype.
+    Short description: free proprietary software with closed source,
+    providing text, voice and video communication over the Internet
+    between computers. You can get a detailed description of this
+    program by clicking on the following link:
+    https://en.wikipedia.org/wiki/Skype
+Number 1.Package: chromium.
+    Short description: web browser.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show chromium.
+Number 2. Package: chromium-l10n.
+    Short description: web browser localization.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show chromium-l10n.
+Number 3. Package: transmission-gtk.
+    Short description: BitTorrent client (GTK + interface).
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show transmission-gtk.
+Number 4. Package: brasero.
+    Short description: CD/DVD burning for GNOME.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show brasero.
+Number 5. Package: gimp.
+    Short description: GNU Raster Image Editor.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gimp.
+Number 6. Package: blender.
+    Short description: fast and flexible system of three-dimensional
+    modeling and rendering. You can get a detailed description of the
+    package by entering the following at the command line:
+    apt-cache show blender.
+Number 7. Package: openshot.
+    Short description: create and edit videos and movies (transitional package).
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show openshot.
+Number 8. Package: audacity.
+    Short description: fast cross platform sound editor.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show audacity.
+Number 9. Package: mixxx.
+    Short description: Digital Disc Jockey Interface.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show mixxx.
+Number 10. Package: dmz-cursor-theme.
+    Short description: Style neutral, scalable cursor theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show dmz-cursor-theme.
+Number 11. Package: numix-gtk-theme.
+    Short description: modern flat theme from the Numix project.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show numix-gtk-theme.
+Number 12. Package: adapta-gtk-theme.
+    Short description: Adaptive Gtk+ theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show adapta-gtk-theme.
+Number 13. Package: materia-gtk-theme.
+    Short description: Material Design theme for GNOME/GTK+ based
+    desktop environments. You can get a detailed description of the
+    package by entering the following at the command line:
+    apt-cache show materia-gtk-theme.
+Number 14. Package: numix-icon-theme.
+    Short description: modern icon theme from the Numix project.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show numix-icon-theme.
+Number 15. Package: numix-icon-theme-circle.
+    Short description: Circle icon theme from the Numix project.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show numix-icon-theme-circle.
+Number 16. Package: gnome-brave-icon-theme.
+    Short description: blue variant of Gnome-colors icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gnome-brave-icon-theme.
+Number 17. Package: gnome-dust-icon-theme.
+    Short description: chocolate variant of the GNOME-Colors icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gnome-dust-icon-theme.
+Number 18. Package: gnome-human-icon-theme.
+    Short description: orange variant of the GNOME-Colors icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gnome-human-icon-theme.
+Number 19. Package: gnome-illustrious-icon-theme.
+    Short description: pink variant of the GNOME-Colors icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gnome-illustrious-icon-theme.
+Number 20. Package: gnome-noble-icon-theme.
+    Short description: purple variant of the GNOME-Colors icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gnome-noble-icon-theme.
+Number 21. Package: gnome-wine-icon-theme.
+    Short description: red variant of the GNOME-Colors icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gnome-wine-icon-theme.
+Number 22. Package: gnome-wise-icon-theme.
+    Short description: green variant of the GNOME-Colors icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gnome-wise-icon-theme.
+Number 23. Package: human-icon-theme.
+    Short description: Human Icon theme.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show human-icon-theme.
+Number 24. Package: bleachbit.
+    Short description: delete unnecessary files from the system.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show bleachbit.
+Number 25. Package: catfish.
+    Short description: tool for find files, which is customizable a command line.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show catfish.
+Number 26. Package: screenfetch.
+    Short description: Bash Screenshot Information Tool.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show screenfetch.
+Number 27. Package: inxi.
+    Short description: full featured system information script.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show inxi.
+Number 28. Package: lshw.
+    Short description: hardware configuration information.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show lshw.
+Number 29. Package: net-tools.
+    Short description: toolkit for NET-3.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show net-tools.
+Number 30. Package: gvfs-backends.
+    Short description: user space virtual file system - drivers.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show gvfs-backends.
+Number 31. Package: unrar.
+    Short description: unarchiver for .rar files (non-free version).
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show unrar.
+Number 32. Package: lightdm-gtk-greeter-settings.
+    Short description: settings editor for the LightDM GTK+ Greeter.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show lightdm-gtk-greeter-settings.
+Number 33. Package: dconf-editor.
+    Short description: simple settings storage system - graphical interface.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show dconf-editor.
+Number 34. Package: ttf-mscorefonts-installer.
+    Short description: installer for Microsoft TrueType core fonts.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show ttf-mscorefonts-installer.
+Number 35. Package: font-freefont-ttf.
+    Short description: free Serif, Sans, and Mono fonts in TrueType format.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show font-freefont-ttf.
+Number 36. Package: fonts-noto.
+    Short description: metapackage to pull in all Noto fonts.
+    You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show fonts-noto.
+Number 37. Package: fonts-noto-core.
+    Short description: 'No Tofu' font families with large Unicode coverage
+    (core). You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show fonts-noto-core.
+Number 38. Package: fonts-noto-extra.
+    Short description: 'No Tofu' font families with large Unicode coverage
+    (extra). You can get a detailed description of the package by entering
+    the following at the command line: apt-cache show fonts-noto-extra.
+

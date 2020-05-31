@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# sysupdate.sh - configures package sources and update the system,
-# install or update packages
+# sysupdate.sh - configures package sources and update the operating system
+# Debian GNU/Linux or LMDE
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -22,11 +22,10 @@
 #           VARIABLES           #
 #################################
 
-# Variables to support script internationalization
-#TEXTDOMAINDIR=/usr/share/locale
-#export TEXTDOMAINDIR
-#TEXTDOMAIN=mare
-#export TEXTDOMAIN
+MESAGE="\
+Choosing a Debian repository mirror.
+When choosing it, be guided by the delay
+time located behind the mirror."
 
 # Variable for checking the contents of the /etc/apt/sources.list file
 STRING=$(awk 'FNR == 5 {print $1, $2}' /etc/apt/sources.list)
@@ -43,12 +42,12 @@ state_ifaces()
 	local STATE_SECOND_IFACE=$(ip a | awk 'FNR == 9 {print $9}')
 
 	if [ "$STATE_FIRST_IFACE" = "DOWN" ] | [ "$STATE_SECOND_IFACE" = "DOWN" ]; then
-		gettext "mare: network connection not established."; echo
+		echo "`basename $0:` network connection not established."
 		if [ "$STATE_FIRST_IFACE" = "DOWN" ]; then
-			gettext "Perhaps the network cable disconnected."; echo
+			echo "Perhaps the network cable disconnected."
 		fi
 		if [ "$STATE_SECOND_IFACE" = "DOWN" ]; then
-			gettext "You may have entered the wrong access point name or password."; echo
+			echo "You may have entered the wrong access point name or password."
 		fi
 		exit 1
 	fi
@@ -73,7 +72,7 @@ edit_sources_list()
 	cat /usr/share/mare/countries.list
 	
 	while [ "$#" -eq 0 ]; do
-		gettext "Enter your country: "
+		echo -n "Enter your country: "
 		read COUNTRY
 		echo ""
 
@@ -82,10 +81,7 @@ edit_sources_list()
 		
 		# check entered country by user in the /usr/share/mare/mirror.list file
 		if [ "$MIRROR_LIST" = "$COUNTRY" ]; then
-		
-			gettext "Choosing a Debian repository mirror."; echo;
-			gettext "When choosing it, be guided by the delay"; echo
-			gettext "time located behind the mirror."; echo; echo
+			echo -e "${MESAGE}\n"
 			
 			# assign a value to a variable
 			MIRROR=$(sed -n '/'${COUNTRY}'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
@@ -108,7 +104,7 @@ edit_sources_list()
 			MIRROR=0
 			
 			while [ "$#" -eq 0 ]; do
-				gettext "Enter a low latency mirror: "
+				echo -n "Enter a low latency mirror: "
 				read MIRROR
 				# assign a value to a variable
 				LIST=$(sed -n '/'$MIRROR'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
@@ -120,14 +116,14 @@ edit_sources_list()
 					# get out of the loop
 					break
 				else
-					gettext "Error! This mirror is not in the list of available mirrors."; echo
+					echo "`basename $0:` this mirror is not in the list of available mirrors."
 				fi
 			done
 			# get out of the loop
 			break
 		else
-			gettext "Error! There is no mirror for your country."; echo
-			gettext "Please indicate the country closest to you."; echo
+			echo "`basename $0:` there is no mirror for your country."
+			echo "Please indicate the country closest to you."
 		fi
 	done
 	
@@ -175,7 +171,7 @@ if [ "$STRING" = "deb cdrom:[Debian" ]; then
 	# upgrade the system by installing or updating packages
 	apt -y upgrade
 else
-	gettext "Package sources are is already configured."; echo
+	echo "Package sources are is already configured."
 fi
 
 ###################### END ######################

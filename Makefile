@@ -1,7 +1,7 @@
 # On some systems if not explicitly given, make uses /bin/sh
 SHELL := /bin/bash
 
-.PHONY: build install uninstall clean
+.PHONY: build install uninstall
 
 prefix ?= /usr/sbin
 rootdir ?= /root
@@ -30,7 +30,6 @@ install:
 	chmod -x $(confdir)/update-motd.d/20-connect-info
 	$(INSTALL) 06_mare_theme $(confdir)/grub.d/
 	chmod -x $(confdir)/grub.d/05_debian_theme
-	@make -C po install DESTDIR=$(DESTDIR)
 	@make -C data install DESTDIR=$(DESTDIR)
 	@update-grub
 	
@@ -47,10 +46,5 @@ uninstall:
 	@echo "uninstall /etc/grub.d/06_mare_theme"
 	@rm -f $(confdir)/grub.d/06_mare_theme
 	chmod +x $(confdir)/grub.d/05_debian_theme
-	@make -C po uninstall DESTDIR=$(DESTDIR)
 	@make -C data uninstall DESTDIR=$(DESTDIR)
 	@update-grub
-
-clean:
-	@make -C po clean DESTDIR=$(DESTDIR)
-	
