@@ -31,28 +31,8 @@ time located behind the mirror."
 STRING=$(awk 'FNR == 5 {print $1, $2}' /etc/apt/sources.list)
 
 #################################
-# 			FUNCTIONS			#
+# 			FUNCTION			#
 #################################
-
-# Check the status of network interfaces
-state_ifaces() 
-{
-	
-	local STATE_FIRST_IFACE=$(ip a | awk 'FNR == 7 {print $9}')
-	local STATE_SECOND_IFACE=$(ip a | awk 'FNR == 9 {print $9}')
-
-	if [ "$STATE_FIRST_IFACE" = "DOWN" ] | [ "$STATE_SECOND_IFACE" = "DOWN" ]; then
-		echo "`basename $0:` network connection not established."
-		if [ "$STATE_FIRST_IFACE" = "DOWN" ]; then
-			echo "Perhaps the network cable disconnected."
-		fi
-		if [ "$STATE_SECOND_IFACE" = "DOWN" ]; then
-			echo "You may have entered the wrong access point name or password."
-		fi
-		exit 1
-	fi
-
-}
 
 # Configure package sources by editing the /etc/apt/sources.list file
 edit_sources_list() 
@@ -158,9 +138,9 @@ if [ -f /etc/apt/sources.list.d/base.list ]; then
 	rm /etc/apt/sources.list.d/base.list
 fi
 	
-if [ "$STRING" = "deb cdrom:[Debian" ]; then
+if [ "$STRING" = "deb" ]; then
 	# check the status of network interfaces
-	state_ifaces
+	/usr/share/mare/stifaces.sh
 
 	# configure package sources by editing the /etc/apt/sources.list file
 	edit_sources_list

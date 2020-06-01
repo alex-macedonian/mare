@@ -18,19 +18,15 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#################################
-#           VARIABLES           #
-#################################
-
 LIGHTDM=$(dpkg -l 2> /dev/null | grep lightdm | awk 'FNR == 2 {print $2}')
-
-###################### BEGIN ######################
 
 # enable numlock by default for LightDM
 if [ -n "$LIGHTDM" ]; then
 	if [ -f /usr/bin/numlockx ]; then
 		echo "The numlockx package is already installed on your system."
 	else
+		# check the status of network interfaces
+		/usr/share/mare/stifaces.sh
 		apt-get -y install numlockx
 	fi
 	
@@ -42,5 +38,3 @@ if [ -n "$LIGHTDM" ]; then
 		sed -i '1a\greeter-setup-script=/usr/bin/numlockx on' /usr/share/lightdm/lightdm.conf.d/01_user.conf
 	fi
 fi
-
-###################### END ######################

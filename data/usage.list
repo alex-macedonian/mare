@@ -2,8 +2,7 @@ Usage: mare [OPTION]
 
 Performs various settings in Debian GNU/Linux or LMDE after installation.
 Namely:
-  configures wireless network;
-  creates a new Wi-Fi connection;
+  configures network;
   configures elevated privileges for the user;
   configures packages sources and update the system by updating packages;
   installs micro programs for your system;

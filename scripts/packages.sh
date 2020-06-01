@@ -85,6 +85,9 @@ help_packs["ru_RU.UTF-8",1]="gimp-help-ru"
 
 ###################### BEGIN ######################
 
+# check the status of network interfaces
+/usr/share/mare/stifaces.sh
+
 echo -e "${MESAGE}\n"
 
 # preparation for installing additional packages
@@ -116,23 +119,25 @@ for package in {/tmp/mare/package*}; do
 		apt-get -y install $FILE
 	fi
 done
-	
-# install help and localization packages for some programs according to
-# the regional settings of the system
-if [ -n "$FIREFOX_PACKAGE" ]; then
-	apt-get -y install ${language_packs[$LANG,0]}
-fi
 
-if [ -n "$LIBREOFFICE_CORE_PACKGE" ]; then
-	apt-get -y install ${language_packs[$LANG,1]}
-fi
+if [ "$LANG" = "ru_RU.UTF-8" ]; then
+	# install help and localization packages for some programs according to
+	# the regional settings of the system
+	if [ -n "$FIREFOX_PACKAGE" ]; then
+		apt-get -y install ${language_packs[$LANG,0]}
+	fi
 
-if [ -n "$LIBREOFFICE_CORE_PACKGE" ]; then
-	apt-get -y install ${help_packs[$LANG,0]}
-fi
+	if [ -n "$LIBREOFFICE_CORE_PACKGE" ]; then
+		apt-get -y install ${language_packs[$LANG,1]}
+	fi
+
+	if [ -n "$LIBREOFFICE_CORE_PACKGE" ]; then
+		apt-get -y install ${help_packs[$LANG,0]}
+	fi
 	
-if [ -n "$GIMP_PACKGE" ]; then
-	apt-get -y install ${help_packs[$LANG,1]}
+	if [ -n "$GIMP_PACKGE" ]; then
+		apt-get -y install ${help_packs[$LANG,1]}
+	fi
 fi
 	
 # clean up garbage after installing packages

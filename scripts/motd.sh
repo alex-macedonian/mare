@@ -19,8 +19,10 @@
 #
 
 #################################
-#           VARIABLE            #
+#           VARIABLES           #
 #################################
+
+WIRELESS_TOOLS_PACKAGE=$(dpkg -l | awk '$2 ~ /wireless-tools/ {print $2}')
 
 MESAGE="\
 Setting up a dynamic message of the day. This is necessary
@@ -91,8 +93,18 @@ edit_login()
 
 ###################### BEGIN ######################
 
+# check the status of network interfaces
+/usr/share/mare/stifaces.sh
+
 # preparing to customize the message of the day
 preparation_for_set_motd
+
+if [ -n "$WIRELESS_TOOLS_PACKAGE" ]; then
+	echo "The wireless-tools package is already installed on your system."
+else
+	# install the wireless-tools package
+	apt-get -y install wireless-tools
+fi
 
 if [ -f /etc/update-motd.d/00-welcome-header ]; then
 	chmod +x /etc/update-motd.d/00-welcome-header

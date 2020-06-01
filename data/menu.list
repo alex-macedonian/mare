@@ -2,17 +2,16 @@
                                 MENU
 ------------------------------------------------------------------
  1 : Configure network.
- 2 : Create a new Wi-Fi connection.
- 3 : Configure elevated privileges for the user.
- 4 : Configure package sources and update system.
- 5 : Install video drivers.
- 6 : Configure the bootloader of the OS.
- 7 : Configure filesystems table.
- 8 : Improve system performance.
- 9 : Install packages.
-10 : Install codecs.
-11 : Configure the message of the day.
-12 : Configure the LightDM display manager.
+ 2 : Configure elevated privileges for the user.
+ 3 : Configure package sources and update system.
+ 4 : Install video drivers.
+ 5 : Configure the bootloader of the OS.
+ 6 : Configure filesystems table.
+ 7 : Improve system performance.
+ 8 : Install packages.
+ 9 : Install codecs.
+10 : Configure the message of the day.
+11 : Configure the LightDM display manager.
  H : Help screen.
  Q : Exit Menu.
 ------------------------------------------------------------------

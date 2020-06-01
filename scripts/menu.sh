@@ -32,7 +32,7 @@ DUMMY=0
 while :
 do
 	cat /usr/share/mare/data/menu.list
-	echo -n "Your Choice [1,2,3,4,5,6,7,8,9,10,11,12,H,Q] > "
+	echo -n "Your Choice [1,2,3,4,5,6,7,8,9,10,11,H,Q] > "
 	read CHOICE
 	
 	case "$CHOICE" in
