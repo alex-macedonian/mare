@@ -1,0 +1,23 @@
+Usage: mare [OPTION]
+
+Performs various settings in Debian GNU/Linux or LMDE after installation.
+Namely:
+  configures wireless network;
+  creates a new Wi-Fi connection;
+  configures elevated privileges for the user;
+  configures packages sources and update the system by updating packages;
+  installs micro programs for your system;
+  configures the bootloader of the operating system;
+  configures filesystems table;
+  improves system performance;
+  sets up additional packages;
+  sets up additional codecs;
+  configures the message of the day;
+  configures the LightDM display manager.
+  
+  -m --menu    show menu
+  -h --help    show this help and exit
+  -v --version show version information and exit
+  
+Example:
+  mare -m show menu
