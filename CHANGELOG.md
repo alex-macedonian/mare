@@ -1,7 +1,10 @@
 ## Mare 3.1 (2020)
 
+	modules optimization done
+	the wificon.sh module removed
+	the menu.sh module added
+	modules fixed
 	Russian language translation in the format gettext removed
-	Script menu added
 	The script is divided into separate modules
 
 ## Mare 3.0 (20200527)

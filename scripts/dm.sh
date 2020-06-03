@@ -18,10 +18,8 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-LIGHTDM=$(dpkg -l 2> /dev/null | grep lightdm | awk 'FNR == 2 {print $2}')
-
 # enable numlock by default for LightDM
-if [ -n "$LIGHTDM" ]; then
+if [ -f /usr/sbin/lightdm ]; then
 	if [ -f /usr/bin/numlockx ]; then
 		echo "The numlockx package is already installed on your system."
 	else

@@ -30,9 +30,8 @@ installation."
 NUMBER=0
 PACKAGE_NAME=0
 FILE=0
-FIREFOX_PACKAGE=$(dpkg -l 2> /dev/null | grep firefox-esr | awk 'FNR == 1 {print $2}')
-LIBREOFFICE_CORE_PACKGE=$(dpkg -l 2> /dev/null | grep libreoffice-core | awk 'FNR == 1 {print $2}')
-GIMP_PACKGE=$(dpkg -l 2> /dev/null | grep gimp | awk 'FNR == 1 {print $2}')
+LIBREOFFICE_CORE_PACKGE=$(dpkg -l 2> /dev/null | awk '$2 ~ /libreoffice-core/ {print $2}')
+GIMP_PACKGE=$(dpkg -l 2> /dev/null | awk '$2 ~ /gimp/ {print $2}')
 
 declare -a possible_packages
 possible_packages[0]="skype"
@@ -123,7 +122,7 @@ done
 if [ "$LANG" = "ru_RU.UTF-8" ]; then
 	# install help and localization packages for some programs according to
 	# the regional settings of the system
-	if [ -n "$FIREFOX_PACKAGE" ]; then
+	if [ -f /usr/lib/firefox-esr/firefox-esr ]; then
 		apt-get -y install ${language_packs[$LANG,0]}
 	fi
 
