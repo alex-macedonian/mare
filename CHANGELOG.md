@@ -1,5 +1,6 @@
 ## Mare 3.1 (2020)
 
+	support for various equipment added to the netbt.sh module
 	modules optimization done
 	the wificon.sh module removed
 	the menu.sh module added
