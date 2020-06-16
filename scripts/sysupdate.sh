@@ -28,7 +28,7 @@ When choosing it, be guided by the delay
 time located behind the mirror."
 
 # Variable for checking the contents of the /etc/apt/sources.list file
-STRING=$(awk 'FNR == 5 {print $1, $2}' /etc/apt/sources.list)
+WORDS=$(awk '$5 ~ /non-free/ {print $5} ' /etc/apt/sources.list)
 
 #################################
 # 			FUNCTION			#
@@ -138,7 +138,7 @@ if [ -f /etc/apt/sources.list.d/base.list ]; then
 	rm /etc/apt/sources.list.d/base.list
 fi
 	
-if [ "$STRING" = "deb" ]; then
+if [ "$WORDS" = "non-free" ]; then
 	# check the status of network interfaces
 	/usr/share/mare/stifaces.sh
 
