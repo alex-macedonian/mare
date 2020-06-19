@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# stifaces.sh - checks the status of network interfaces
+# stifaces.sh - checks the status of network interfaces.
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify

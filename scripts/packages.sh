@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# packges.sh - sets up additional packages for Debian GNU/Linux or LMDE
+# packges.sh - sets up additional packages for Debian GNU/Linux.
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -85,7 +85,7 @@ help_packs["ru_RU.UTF-8",1]="gimp-help-ru"
 ###################### BEGIN ######################
 
 # check the status of network interfaces
-/usr/share/mare/stifaces.sh
+/usr/lib/mare/stifaces.sh
 
 echo -e "${MESAGE}\n"
 
@@ -93,7 +93,7 @@ echo -e "${MESAGE}\n"
 # create a directory to store temporary files
 mkdir -p /tmp/mare 
 # show a list of possible packages for installation
-cat /usr/share/mare/data/package.list
+cat /usr/share/mare/package.list
 
 # create files containing package names for installation
 while

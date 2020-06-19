@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # motd.sh - configures the Message of the Day in of the operating system
-# Debian GNU/Linux or LMDE
+# Debian GNU/Linux.
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -94,7 +94,7 @@ edit_login()
 ###################### BEGIN ######################
 
 # check the status of network interfaces
-/usr/share/mare/stifaces.sh
+/usr/lib/mare/stifaces.sh
 
 # preparing to customize the message of the day
 preparation_for_set_motd

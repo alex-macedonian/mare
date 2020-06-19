@@ -3,7 +3,7 @@
 # optimization.sh - configures the dumping of pages of RAM into the
 # swap partition and the amount of RAM allocated for the cache
 # (default values: vm.swappiness = 60, vm.vfs_cache_pressure = 100).
-# In of the operating system Debian GNU/Linux or LMDE.
+# In of the operating system Debian GNU/Linux.
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -71,4 +71,3 @@ else
 fi
 
 ###################### END ######################
-

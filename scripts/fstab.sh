@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # fstab.sh - configures filesystems table in of the operating system
-# Debian GNU/Linux or LMDE
+# Debian GNU/Linux.
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify

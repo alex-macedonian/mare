@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # dm.sh - configures the LightDM display manager in of the operating system 
-# Debian GNU/Linux or LMDE
+# Debian GNU/Linux.
 # Copyright (C) 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ if [ -f /usr/sbin/lightdm ]; then
 		echo "The numlockx package is already installed on your system."
 	else
 		# check the status of network interfaces
-		/usr/share/mare/stifaces.sh
+		/usr/lib/mare/stifaces.sh
 		apt-get -y install numlockx
 	fi
 	

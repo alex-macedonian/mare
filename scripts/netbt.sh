@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # netbt.sh - configures USB, PCI, wired, wireless network and Bluetooth
-# cards in of the operating system Debian GNU/Linux or LMDE
+# cards in of the operating system Debian GNU/Linux.
 # Copyright (C) 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -94,11 +94,6 @@ modules[38]="rtlwifi"
 # 			FUNCTIONS			#
 #################################
 
-# Choose package to install
-#choose_package()
-#{
-#}
-
 # Install the selected package using the dpkg utility
 install_package()
 {
@@ -166,7 +161,7 @@ for modules in ${modules[*]}; do
 		# if wired, the network interface is connected, then
 		if [ "$STATE_IFACE" = "UP" ]; then
 			# configure package sources and update the system
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			# install the package using apt-get utility
 			apt-get -y install firmware-atheros
 		else
@@ -185,7 +180,7 @@ for modules in ${modules[*]}; do
 		echo "The atmel-firmware package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install atmel-firmware
 		else
 			PACKAGE="atmel-firmware"
@@ -200,7 +195,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-brcm80211 package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-brcm80211
 		else
 			PACKAGE="firmware-brcm80211"
@@ -215,7 +210,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-b43-installer package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-b43-installer
 		else
 			PACKAGE="firmware-b43-installer"
@@ -230,7 +225,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-b43legacy-installer package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-b43legacy-installer
 		else
 			PACKAGE="firmware-b43legacy-installer"
@@ -245,7 +240,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-bnx2 package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-bnx2
 		else
 			PACKAGE="firmware-bnx2"
@@ -258,7 +253,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-cavium package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-cavium
 		else
 			PACKAGE="firmware-cavium"
@@ -271,7 +266,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-ipw2x00 package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-ipw2x00
 		else
 			PACKAGE="firmware-ipw2x00"
@@ -286,7 +281,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-iwlwifi package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-iwlwifi
 		else
 			PACKAGE="firmware-iwlwifi"
@@ -301,7 +296,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-libertas package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-libertas
 		else
 			PACKAGE="firmware-libertas"
@@ -316,7 +311,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-myricom package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-myricom
 		else
 			PACKAGE="firmware-myricom"
@@ -329,7 +324,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-netxen package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-netxen
 		else
 			PACKAGE="firmware-netxen"
@@ -342,7 +337,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-ti-connectivity package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-ti-connectivity
 		else
 			PACKAGE="firmware-ti-connectivity"
@@ -357,7 +352,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-intelwimax package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-intelwimax
 		else
 			PACKAGE="firmware-intelwimax"
@@ -370,7 +365,7 @@ for modules in ${modules[*]}; do
 		echo "The firmware-realtek package is already installed on your system."
 	else
 		if [ "$STATE_IFACE" = "UP" ]; then
-			/usr/shere/mare/sysupdate.sh
+			/usr/lib/mare/sysupdate.sh
 			apt-get -y install firmware-realtek
 		else
 			PACKAGE="firmware-realtek"

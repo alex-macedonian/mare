@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #
-# grub.sh - configures bootloader operating system Debian GNU/Linux
-# or LMDE
+# grub.sh - configures bootloader operating system Debian GNU/Linux.
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
