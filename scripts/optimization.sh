@@ -20,48 +20,35 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#################################
-#           VARIABLES           #
-#################################
-
 # Variables for checking the contents of the /etc/sysctl.conf file
-SWAPPINESS=$(sysctl -a 2> /dev/null | grep vm.swappiness)
-VFS_CACHE_PRESSURE=$(sysctl -a 2> /dev/null | grep vm.vfs_cache_pressure)
-
-#################################
-# 			FUNCTION			#
-#################################
+SWAPPINESS=$(sysctl -a 2> /dev/null | grep "vm.swappiness")
+VFS_CACHE_PRESSURE=$(sysctl -a 2> /dev/null | grep "vm.vfs_cache_pressure")
 
 # Edit the /etc/sysctl.conf file
 edit_sysctl_conf() 
 {
 	
 	# The variable shows the size of RAM in the operating system
-	local MEM_TOTAL=$(free --mega | awk 'FNR == 2 {print $2}')
+	local MEM_TOTAL=$(awk '$1 ~ /MemTotal/ {print $2}' /proc/meminfo)
 
-	if [ "$MEM_TOTAL" -le 1200 ]; then
+	if [ "$MEM_TOTAL" -le 1100000 ]; then	# in kB
 		sed -i '67a\ ' /etc/sysctl.conf
 		sed -i '68a\vm.swappiness=30' /etc/sysctl.conf
 		sed -i '69a\vm.vfs_cache_pressure=500' /etc/sysctl.conf
-		echo "Apply the following changes:"
-		sysctl -p
-	elif [ "$MEM_TOTAL" -le 2200 ]; then
+		sysctl -p > /dev/null
+	elif [ "$MEM_TOTAL" -le 2100000 ]; then	# in kB
 		sed -i '67a\ ' /etc/sysctl.conf
 		sed -i '68a\vm.swappiness=5' /etc/sysctl.conf
 		sed -i '69a\vm.vfs_cache_pressure=1000' /etc/sysctl.conf
-		echo "Apply the following changes:"
-		sysctl -p
+		sysctl -p > /dev/null
 	else
 		sed -i '67a\ ' /etc/sysctl.conf
 		sed -i '68a\vm.swappiness=3' /etc/sysctl.conf
 		sed -i '69a\vm.vfs_cache_pressure=1000' /etc/sysctl.conf
-		echo "Apply the following changes:"
-		sysctl -p
+		sysctl -p > /dev/null
 	fi
 
 }
-
-###################### BEGIN ######################
 
 if [ "$SWAPPINESS" = "vm.swappiness = 60" ] & [ "$VFS_CACHE_PRESSURE" = "vm.vfs_cache_pressure = 100" ]; then
 	edit_sysctl_conf
@@ -69,5 +56,3 @@ else
 	echo "Resetting RAM pages to the swap section and the amount"
 	echo "of RAM allocated for the cache is already configured."
 fi
-
-###################### END ######################

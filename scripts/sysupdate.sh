@@ -41,6 +41,7 @@ edit_sources_list()
 	local CDROM=$(sed -n '3p' /etc/apt/sources.list)
 	local COUNTRY=0
 	local MIRROR_LIST=0
+	local PYTHON_PYCURL_PACKAGE=$(dpkg --list | awk '$2 ~ /python3-pycurl/ {print $2}')
 	local MIRROR=0
 	local LIST=0
 	local SITE=0
@@ -63,10 +64,19 @@ edit_sources_list()
 			# assign a value to a variable
 			MIRROR=$(sed -n '/'${COUNTRY}'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
 			
-			# show the list of mirrors for the specified country
-			for MIRROR in $MIRROR; do
-				/usr/lib/mare/speed.py $COUNTRY $MIRROR
-			done
+			if [ -n "$PYTHON_PYCURL_PACKAGE" ]; then
+				# show the list of mirrors for the specified country
+				for MIRROR in $MIRROR; do
+					/usr/lib/mare/speed.py $COUNTRY $MIRROR
+				done
+			else
+				apt-get -y install python3-pycurl
+				echo ""
+				# show the list of mirrors for the specified country
+				for MIRROR in $MIRROR; do
+					/usr/lib/mare/speed.py $COUNTRY $MIRROR
+				done
+			fi
 
 			echo ""
 			# remove the previous value from the variable

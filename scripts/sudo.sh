@@ -18,16 +18,26 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Variable for checking the contents of the /etc/sudoers file
-SUDOERS=$(awk 'FNR == 21 {print}' /etc/sudoers 2> /dev/null)
-NAME=0
+ROOT_USER=$(grep "root" /etc/passwd | cut -d":" -f1)
+SUDO_GROUP=$(grep "sudo" /etc/group | cut -d":" -f4)
+HOST_NAME=$(cat /etc/hostname)
+USER_NAME=$(grep "video" /etc/group | cut -d":" -f4)
 
-echo -n "Enter your username: "
-read NAME
-# check  for the presence of the string username	ALL=(ALL: ALL) ALL
-# if such a line exists, then inform the user about it
-if [ -n "$SUDOERS" ]; then
-	echo "Elevated user privileges are already configured."
-else
-	sed -i '20a\'${NAME}'	ALL=(ALL:ALL) ALL' /etc/sudoers
+# check if root user exists
+if [ -n "$ROOT_USER" ]; then
+	# check if regular user is added to sudo group
+	if [ -z "$SUDO_GROUP" ]; then
+		# define an alias for the host name
+		sed -i '13a\Host_Alias HOST = '${HOST_NAME}'' /etc/sudoers
+		# define an alias for the username
+		sed -i '15a\User_Alias ADMIN = '${USER_NAME}'' /etc/sudoers
+		# Grant access rights for a user with the alias ADMIN.
+		# The HOST=(ALL: ALL) ALL snippet means that a user with the alias
+		# ADMIN can use the sudo package to execute commands in root mode.
+		# The word HOST means the assigned hostname alias. The word ALL
+		# means "any command." Additional parameters (ALL: ALL) mean that 
+		# a user with the alias ADMIN can run commands, like any other user
+		# any group.
+		sed -i '20a\ADMIN	HOST=(ALL:ALL) ALL' /etc/sudoers
+	fi
 fi
