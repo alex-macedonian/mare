@@ -1,10 +1,11 @@
 ## Mare 3.1 (2020)
 
-	support for various equipment added to the netbt.sh module
-	modules optimization done
-	the wificon.sh module removed
-	the menu.sh module added
-	modules fixed
+	The module for measuring data transfer rate added
+	Support for various equipment added to the netbt.sh module
+	Modules optimization done
+	The wificon.sh module removed
+	The menu.sh module added
+	Modules fixed
 	Russian language translation in the format gettext removed
 	The script is divided into separate modules
 

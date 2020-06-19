@@ -24,8 +24,8 @@
 
 MESAGE="\
 Choosing a Debian repository mirror.
-When choosing it, be guided by the delay
-time located behind the mirror."
+When choosing it, be guided by the
+highest data transfer rate."
 
 # Variable for checking the contents of the /etc/apt/sources.list file
 WORDS=$(awk '$5 ~ /non-free/ {print $5} ' /etc/apt/sources.list)
@@ -42,9 +42,6 @@ edit_sources_list()
 	local COUNTRY=0
 	local MIRROR_LIST=0
 	local MIRROR=0
-	local AVG=0
-	local WORD_LIGNTH=0
-	local PREFIX=0
 	local LIST=0
 	local SITE=0
 	
@@ -68,15 +65,7 @@ edit_sources_list()
 			
 			# show the list of mirrors for the specified country
 			for MIRROR in $MIRROR; do
-				AVG=$(ping -c 5 -i 0.2 -q ${MIRROR} | awk 'FNR == 5' | cut -d"/" -f6)
-				if [ -z "$AVG" ]; then
-					AVG=0
-				fi
-
-				# align the string in width
-				WORD_LIGNTH=$(echo "${MIRROR}" | wc -m)
-				PREFIX=$(expr 47 - $WORD_LIGNTH)
-				echo "${COUNTRY} ${MIRROR} ${AVG}" | awk '{printf "%-20s %s %'${PREFIX}'s\n", $1, $2, $3}'
+				/usr/lib/mare/speed.py $COUNTRY $MIRROR
 			done
 
 			echo ""
@@ -84,7 +73,7 @@ edit_sources_list()
 			MIRROR=0
 			
 			while [ "$#" -eq 0 ]; do
-				echo -n "Enter a low latency mirror: "
+				echo -n "Enter mirror: "
 				read MIRROR
 				# assign a value to a variable
 				LIST=$(sed -n '/'$MIRROR'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
@@ -140,7 +129,7 @@ fi
 	
 if [ "$WORDS" = "non-free" ]; then
 	# check the status of network interfaces
-	/usr/share/mare/stifaces.sh
+	/usr/lib/mare/stifaces.sh
 
 	# configure package sources by editing the /etc/apt/sources.list file
 	edit_sources_list
