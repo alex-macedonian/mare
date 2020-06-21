@@ -18,7 +18,7 @@
 
 LINE_PREFIX="   "
 DATE=$(date)
-IFACE=$(ip a | awk 'FNR == 9' | cut -d":" -f2)
+IFACE=$(iw dev | awk 'FNR == 2 {print $2}')
 #STATE_IFACE2=$(ip a | awk 'FNR == 7 {print $9}')
 # Here you can add variables.
 STATE_IFACE3=$(ip a | awk 'FNR == 9 {print $9}')
