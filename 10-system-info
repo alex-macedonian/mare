@@ -1,6 +1,7 @@
 #!/bin/bash
 # 
 # 10-system-info - system information for the MOTD
+#
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
