@@ -1,5 +1,7 @@
 ## Mare 3.1 (2020)
 
+	In motd.sh module added installing dependencies for the correct operation of message scripts of the day
+	The sudo.sh module completely redesigned
 	The module for measuring data transfer rate added
 	Support for various equipment added to the netbt.sh module
 	Modules optimization done
