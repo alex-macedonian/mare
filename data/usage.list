@@ -1,11 +1,11 @@
 Usage: mare [OPTION]
 
-Performs various settings in Debian GNU/Linux or LMDE after installation.
+Performs various settings in the GNU/Linux OS after installation.
 Namely:
-  configures network;
+  configures network and Bluetooth;
   configures elevated privileges for the user;
   configures packages sources and update the system by updating packages;
-  installs micro programs for your system;
+  installs the videodrivers and microcode for the AMD or Intel processors;
   configures the bootloader of the operating system;
   configures filesystems table;
   improves system performance;
