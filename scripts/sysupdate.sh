@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
 # sysupdate.sh - configures package sources and update the operating system
-# Debian GNU/Linux.
+# system Debian GNU/Linux
+#
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -41,7 +42,6 @@ edit_sources_list()
 	local CDROM=$(sed -n '3p' /etc/apt/sources.list)
 	local COUNTRY=0
 	local MIRROR_LIST=0
-	local PYTHON_PYCURL_PACKAGE=$(dpkg --list | awk '$2 ~ /python3-pycurl/ {print $2}')
 	local MIRROR=0
 	local LIST=0
 	local SITE=0
@@ -64,19 +64,10 @@ edit_sources_list()
 			# assign a value to a variable
 			MIRROR=$(sed -n '/'${COUNTRY}'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
 			
-			if [ -n "$PYTHON_PYCURL_PACKAGE" ]; then
-				# show the list of mirrors for the specified country
-				for MIRROR in $MIRROR; do
-					/usr/lib/mare/speed.py $COUNTRY $MIRROR
-				done
-			else
-				apt-get -y install python3-pycurl
-				echo ""
-				# show the list of mirrors for the specified country
-				for MIRROR in $MIRROR; do
-					/usr/lib/mare/speed.py $COUNTRY $MIRROR
-				done
-			fi
+			# show the list of mirrors for the specified country
+			for MIRROR in $MIRROR; do
+				/usr/lib/mare/speed.py $COUNTRY $MIRROR
+			done
 
 			echo ""
 			# remove the previous value from the variable
@@ -95,13 +86,13 @@ edit_sources_list()
 					# get out of the loop
 					break
 				else
-					echo "`basename $0:` this mirror is not in the list of available mirrors."
+					echo "`basename $0:` this mirror is not in the list of available mirrors"
 				fi
 			done
 			# get out of the loop
 			break
 		else
-			echo "`basename $0:` there is no mirror for your country."
+			echo "`basename $0:` there is no mirror for your country"
 			echo "Please indicate the country closest to you."
 		fi
 	done
@@ -138,6 +129,8 @@ if [ -f /etc/apt/sources.list.d/base.list ]; then
 fi
 	
 if [ "$WORDS" = "non-free" ]; then
+	echo "Package sources are is already configured."
+else
 	# check the status of network interfaces
 	/usr/lib/mare/stifaces.sh
 
@@ -149,8 +142,6 @@ if [ "$WORDS" = "non-free" ]; then
 			
 	# upgrade the system by installing or updating packages
 	apt -y upgrade
-else
-	echo "Package sources are is already configured."
 fi
 
 ###################### END ######################
