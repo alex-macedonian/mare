@@ -2,8 +2,8 @@
 #
 # optimization.sh - configures the dumping of pages of RAM into the
 # swap partition and the amount of RAM allocated for the cache
-# (default values: vm.swappiness = 60, vm.vfs_cache_pressure = 100).
-# In of the operating system Debian GNU/Linux.
+# (default values: vm.swappiness = 60, vm.vfs_cache_pressure = 100)
+#
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -21,22 +21,22 @@
 #
 
 # Variables for checking the contents of the /etc/sysctl.conf file
-SWAPPINESS=$(sysctl -a 2> /dev/null | grep "vm.swappiness")
-VFS_CACHE_PRESSURE=$(sysctl -a 2> /dev/null | grep "vm.vfs_cache_pressure")
+SWAPPINESS=$(sysctl -a | grep "vm.swappiness")
+VFS_CACHE_PRESSURE=$(sysctl -a | grep "vm.vfs_cache_pressure")
 
 # Edit the /etc/sysctl.conf file
 edit_sysctl_conf() 
 {
 	
 	# The variable shows the size of RAM in the operating system
-	local MEM_TOTAL=$(awk '$1 ~ /MemTotal/ {print $2}' /proc/meminfo)
+	local MEM_TOTAL=$(free --mega | awk 'FNR == 2 {print $2}')
 
-	if [ "$MEM_TOTAL" -le 1100000 ]; then	# in kB
+	if [ "$MEM_TOTAL" -le 1200 ]; then
 		sed -i '67a\ ' /etc/sysctl.conf
 		sed -i '68a\vm.swappiness=30' /etc/sysctl.conf
 		sed -i '69a\vm.vfs_cache_pressure=500' /etc/sysctl.conf
 		sysctl -p > /dev/null
-	elif [ "$MEM_TOTAL" -le 2100000 ]; then	# in kB
+	elif [ "$MEM_TOTAL" -le 2200 ]; then
 		sed -i '67a\ ' /etc/sysctl.conf
 		sed -i '68a\vm.swappiness=5' /etc/sysctl.conf
 		sed -i '69a\vm.vfs_cache_pressure=1000' /etc/sysctl.conf

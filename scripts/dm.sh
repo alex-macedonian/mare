@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# dm.sh - configures the LightDM display manager in of the operating system 
-# Debian GNU/Linux.
+# dm.sh - configures the LightDM display manager
+#
 # Copyright (C) 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -19,8 +19,8 @@
 #
 
 # enable numlock by default for LightDM
-if [ -f /usr/sbin/lightdm ]; then
-	if [ -f /usr/bin/numlockx ]; then
+if [ -x /usr/sbin/lightdm ]; then
+	if [ -x /usr/bin/numlockx ]; then
 		echo "The numlockx package is already installed on your system."
 	else
 		# check the status of network interfaces
