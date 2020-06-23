@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# motd.sh - configures the Message of the Day in of the operating system
-# Debian GNU/Linux.
+# motd.sh - configures the Message of the Day
+#
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -19,10 +19,8 @@
 #
 
 #################################
-#           VARIABLES           #
+#           VARIABLE            #
 #################################
-
-WIRELESS_TOOLS_PACKAGE=$(dpkg -l | awk '$2 ~ /wireless-tools/ {print $2}')
 
 MESAGE="\
 Setting up a dynamic message of the day. This is necessary
@@ -41,8 +39,6 @@ preparation_for_set_motd()
 	
 	echo -e "${MESAGE}\n"
 
-	# check file contents
-	# if the file is not empty, clear it
 	if [ -s /etc/motd ]; then
 		cat /dev/null > /etc/motd
 	fi
@@ -77,15 +73,17 @@ edit_login()
 		echo -n "Display message of the day first? (y or n): "
 		read CHAR
 		[ "$CHAR" != "n" ]; do
-		if [ "$CHAR" = "y" ]; then 
-			sed -i '100i\# Prints the last login info upon successful login' /etc/pam.d/login
-			sed -i '101i\# (Replaces the "LASTLOG_ENAB" option from login.defs)' /etc/pam.d/login
-			sed -i '102i\session    optional   pam_lastlog.so' /etc/pam.d/login
-			sed -i '103i\ ' /etc/pam.d/login
-			sed -i '89,92d' /etc/pam.d/login
+		if [ "$CHAR" = "y" ]; then
+			if [ -f /etc/pam.d/login ]; then
+				sed -i '100i\# Prints the last login info upon successful login' /etc/pam.d/login
+				sed -i '101i\# (Replaces the "LASTLOG_ENAB" option from login.defs)' /etc/pam.d/login
+				sed -i '102i\session    optional   pam_lastlog.so' /etc/pam.d/login
+				sed -i '103i\ ' /etc/pam.d/login
+				sed -i '89,92d' /etc/pam.d/login
+			fi
 			break
 		else
-			echo "`basename $0:` you have entered an invalid character."
+			echo "`basename $0:` you have entered an invalid character"
 		fi
 	done
 	
@@ -93,18 +91,8 @@ edit_login()
 
 ###################### BEGIN ######################
 
-# check the status of network interfaces
-/usr/lib/mare/stifaces.sh
-
 # preparing to customize the message of the day
 preparation_for_set_motd
-
-if [ -n "$WIRELESS_TOOLS_PACKAGE" ]; then
-	echo "The wireless-tools package is already installed on your system."
-else
-	# install the wireless-tools package
-	apt-get -y install wireless-tools
-fi
 
 if [ -f /etc/update-motd.d/00-welcome-header ]; then
 	chmod +x /etc/update-motd.d/00-welcome-header
@@ -116,6 +104,20 @@ fi
 
 if [ -f /etc/update-motd.d/20-connect-info ]; then
 	chmod +x /etc/update-motd.d/20-connect-info
+
+	if [ -x /sbin/iwlist ]; then
+		echo "The wireless-tools package is already installed on your system."
+	else
+		# check the status of network interfaces
+		/usr/lib/mare/stifaces.sh
+		apt-get -y install wireless-tools
+	fi
+	
+	if [ -x /sbin/iw ]; then
+		echo "The iw package is already installed on your system."
+	else
+		apt-get -y install iw
+	fi
 fi
 
 ###################### END ######################
