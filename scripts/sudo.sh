@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# sudo.sh - configures elevated user privileges in of the operating system
-# Debian GNU/Linux.
+# sudo.sh - configures elevated user privileges
+#
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 
 ROOT_USER=$(grep "root" /etc/passwd | cut -d":" -f1)
 SUDO_GROUP=$(grep "sudo" /etc/group | cut -d":" -f4)
-HOST_NAME=$(cat /etc/hostname)
+HOST_NAME=$(uname --nodename)
 USER_NAME=$(grep "video" /etc/group | cut -d":" -f4)
 
 # check if root user exists
