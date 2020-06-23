@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # mare - tool the home computer setup
+#
 # Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -17,11 +18,88 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-DISTRO=$(lsb_release --description | awk '{print $2, $3, $4}')
-DEBIAN_VERSION=$(cat /etc/debian_version | cut -d"." -f1)
+#################################
+#           VARIABLES           #
+#################################
+
+LC_ALL=C
+export LC_ALL
+
+FILE_SIZE=$(cat /usr/share/mare/version.list | head -n1)
+ERROR=0
 COMMAND="$1"
 
-if [ "$DISTRO" = "Debian GNU/Linux $DEBIAN_VERSION" ]; then
+#################################
+# 			FUNCTION			#
+#################################
+
+# Check used tools for their presence in the operating system
+check_utils()
+{
+	local SH=0
+	local COREUTILS=0
+	local PERL=0
+	local PROCPS=0
+	local PCIITILS=0
+	local USBUTILS=0
+	
+
+	uname --all
+	bash --version | head -n1 | cut -d" " -f2-4
+	SH=$(readlink -f /bin/sh)
+	echo "/bin/sh link to ${SH}"
+
+	COREUTILS=$(chmod --version | head -n1 | cut -d")" -f2)
+	echo "GNU coreutils ${COREUTILS}"
+	find --version | head -n1
+	
+	if [ -x /usr/bin/apt ]; then
+		apt --version | head -n1 | cut -d"(" -f1
+	else
+		echo "`basename $0:` apt is not found"
+	fi
+	
+	if [ -x /usr/bin/dpkg ]; then
+		echo "dpkg `/usr/bin/dpkg --version | head -n1 | cut -d" " -f7`"
+	else
+		echo "`basename $0:` dpkg is not found"
+	fi
+	
+	if [ -h /usr/bin/awk ]; then
+  		echo "/usr/bin/awk link to `readlink -f /usr/bin/awk`"
+	elif [ -x /usr/bin/awk ]; then
+  		echo "awk `/usr/bin/awk --version | head -n1`"
+  	elif [ -x /usr/bin/gawk ]; then
+  		echo "gawk `/usr/bin/gawk --version | head -n1`"
+	else 
+  		echo "`basename $0:` awk is not found" 
+	fi
+	
+	sed --version | head -n1
+	wget --version | head -n1 | cut -d" " -f1-3
+	update-grub --version
+	grep --version | head -n1
+	PERL=$(perl -V:version | cut -d"'" -f2)
+	echo "Perl ${PERL}" 
+	python3 --version
+	ip -Version
+
+	PROCPS=$(free --version | cut -d" " -f4)
+	echo "Procps ${PROCPS}"
+	PCIUTILS=$(lspci --version | cut -d" " -f3)
+	echo "PCI utils ${PCIUTILS}"
+	USBUTILS=$(lsusb --version | cut -d" " -f3)
+	echo "USB utils ${USBUTILS}"
+}
+
+###################### BEGIN ######################
+
+if [ -z "$FILE_SIZE" ]; then
+	check_utils > /usr/share/mare/version.list
+fi
+
+ERROR=$(grep "^m*a" /usr/share/mare/version.list)
+if [ -z "$ERROR" ]; then
 	# Usage
 	while [ "$#" -gt 0 ]; do
 		case "$1" in
@@ -34,7 +112,7 @@ if [ "$DISTRO" = "Debian GNU/Linux $DEBIAN_VERSION" ]; then
 			exit 0 
 			;;
 			* )
-			echo "`basename $0:` wrong key — «$1»."
+			echo "`basename $0:` wrong key — «$1»"
 			echo "On command «mare --help» one can get additional information."
 			exit 1
     		;;
@@ -43,13 +121,15 @@ if [ "$DISTRO" = "Debian GNU/Linux $DEBIAN_VERSION" ]; then
 	done
 
 	if [ -z "$COMMAND" ]; then
-		echo "`basename $0:` indicate required action."
+		echo "`basename $0:` indicate required action"
 		echo "For help using the program, enter the command:"
 		echo "mare -h or mare --help."
 		exit 1
 	fi
 	shift
 else
-	echo "`basename $0:` you are using a different distribution GNU/Linux."
+	echo "`basename $0:` you are using a different distribution GNU/Linux"
 	exit 1
 fi
+
+###################### END ######################
