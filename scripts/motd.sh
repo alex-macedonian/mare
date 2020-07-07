@@ -19,15 +19,6 @@
 #
 
 #################################
-#           VARIABLE            #
-#################################
-
-MESAGE="\
-Setting up a dynamic message of the day. This is necessary
-so that your console, after authentication, displays a
-greeting and useful information about your operating system."
-
-#################################
 # 			FUNCTIONS			#
 #################################
 
@@ -90,6 +81,10 @@ edit_login()
 }
 
 ###################### BEGIN ######################
+
+# Setting up a dynamic message of the day. This is necessary
+# so that your console, after authentication, displays a
+# greeting and useful information about your operating system.
 
 # preparing to customize the message of the day
 preparation_for_set_motd

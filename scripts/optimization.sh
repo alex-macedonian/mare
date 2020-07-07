@@ -4,7 +4,7 @@
 # swap partition and the amount of RAM allocated for the cache
 # (default values: vm.swappiness = 60, vm.vfs_cache_pressure = 100)
 #
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# Copyright (C) 2019 - 2020 Alexandre Popov <consiorp@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by

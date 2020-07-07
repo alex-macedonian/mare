@@ -2,7 +2,7 @@
 #
 # sudo.sh - configures elevated user privileges
 #
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# Copyright (C) 2019 - 2020 Alexandre Popov <consiorp@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
