@@ -2,7 +2,7 @@
 #
 # mare - tool the home computer setup
 #
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# Copyright (C) 2019 - 2020 Alexandre Popov <consiorp@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -26,7 +26,8 @@ LC_ALL=C
 export LC_ALL
 
 FILE_SIZE=$(cat /usr/share/mare/version.list | head -n1)
-ERROR=0
+BASH=0
+PACKAGE_MANAGER=0
 COMMAND="$1"
 
 #################################
@@ -42,12 +43,21 @@ check_utils()
 	local PROCPS=0
 	local PCIITILS=0
 	local USBUTILS=0
-	
 
-	uname --all
-	bash --version | head -n1 | cut -d" " -f2-4
+	if [ "$SHELL" = "/bin/bash" ]; then
+		bash --version | head -n1 | cut -d" " -f2-4
+	else
+		echo "`basename $0:` bash is not found"
+	fi
+
 	SH=$(readlink -f /bin/sh)
 	echo "/bin/sh link to ${SH}"
+	
+	if [ -x /usr/bin/lsb_release ]; then
+		lsb_release --id
+	else
+		echo "`basename $0:` lsb_release is not found"
+	fi
 
 	COREUTILS=$(chmod --version | head -n1 | cut -d")" -f2)
 	echo "GNU coreutils ${COREUTILS}"
@@ -98,37 +108,54 @@ if [ -z "$FILE_SIZE" ]; then
 	check_utils > /usr/share/mare/version.list
 fi
 
-ERROR=$(grep "^m*a" /usr/share/mare/version.list)
-if [ -z "$ERROR" ]; then
-	# Usage
-	while [ "$#" -gt 0 ]; do
-		case "$1" in
-			-h | --help )
-			cat /usr/share/mare/usage.list
-			exit 0 
-			;;
-			-v | --version )
-			cat /usr/share/mare/release.list
-			exit 0 
-			;;
-			* )
-			echo "`basename $0:` wrong key — «$1»"
-			echo "On command «mare --help» one can get additional information."
-			exit 1
-    		;;
-    	esac
-		break
-	done
+BASH=$(grep "mare: bash is" /usr/share/mare/version.list)
+PACKAGE_MANAGER=$(grep "^m*a" /usr/share/mare/version.list)
 
-	if [ -z "$COMMAND" ]; then
-		echo "`basename $0:` indicate required action"
-		echo "For help using the program, enter the command:"
-		echo "mare -h or mare --help."
+if [ -z "$BASH" ]; then
+	if [ -z "$PACKAGE_MANAGER" ]; then
+		# Usage
+		while [ "$#" -gt 0 ]; do
+			case "$1" in
+				-n | --netbt )
+				/usr/lib/mare/netbt.sh
+				/usr/lib/mare/sudo.sh
+				;;
+				-d | --drivers )
+				/usr/lib/mare/drivers.sh
+				;;
+				-m | --motd )
+				/usr/lib/mare/motd.sh
+				;;
+				-h | --help )
+				cat /usr/share/mare/usage.list
+				exit 0 
+				;;
+				-v | --version )
+				cat /usr/share/mare/release.list
+				exit 0 
+				;;
+				* )
+				echo "`basename $0:` wrong key — «$1»"
+				echo "On command «mare --help» one can get additional information."
+				exit 1
+    			;;
+    		esac
+			break
+		done
+
+		if [ -z "$COMMAND" ]; then
+			echo "`basename $0:` indicate required action"
+			echo "For help using the program, enter the command:"
+			echo "mare -h or mare --help."
+			exit 1
+		fi
+		shift
+	else
+		echo "`basename $0:` you are using a different distribution GNU/Linux"
 		exit 1
 	fi
-	shift
 else
-	echo "`basename $0:` you are using a different distribution GNU/Linux"
+	echo "`basename $0:` this script only works with bash"
 	exit 1
 fi
 
