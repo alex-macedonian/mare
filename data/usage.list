@@ -11,12 +11,21 @@ Namely:
   improves system performance;
   sets up additional packages;
   sets up additional codecs;
-  configures the message of the day;
-  configures the LightDM display manager.
+  configures the LightDM display manager;
+  configures the message of the day.
   
-  -m --menu    show menu
+  -n --netbt   configure network and Bluetooth
+               configure elevated privileges for the user
+  -d --drivers configure packages sources and update the system by updating packages
+               install the videodrivers and microcode for the AMD or Intel processors
+  -m --motd    configure the message of the day
+
   -h --help    show this help and exit
   -v --version show version information and exit
   
 Example:
-  mare -m show menu
+  mare -n configure network and Bluetooth, and then
+          configure elevated privileges for the user
+          
+The mare homepage: <https://github.com/alex-macedonian/mare>
+The error messages send to address: <bugs.mare@gmail.com>
