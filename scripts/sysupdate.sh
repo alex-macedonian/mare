@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# sysupdate.sh - configures package sources and update the operating system
+# sysupdate.sh - configures package sources and update the operating
 # system Debian GNU/Linux
 #
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# Copyright (C) 2019 - 2020 Alexandre Popov <consiorp@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,32 +19,21 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#################################
-#           VARIABLES           #
-#################################
-
 MESAGE="\
 Choosing a Debian repository mirror.
 When choosing it, be guided by the
 highest data transfer rate."
 
-# Variable for checking the contents of the /etc/apt/sources.list file
-WORDS=$(awk '$5 ~ /non-free/ {print $5} ' /etc/apt/sources.list)
-
-#################################
-# 			FUNCTION			#
-#################################
-
 # Configure package sources by editing the /etc/apt/sources.list file
 edit_sources_list() 
 {
-
 	local CDROM=$(sed -n '3p' /etc/apt/sources.list)
 	local COUNTRY=0
 	local MIRROR_LIST=0
 	local MIRROR=0
 	local LIST=0
 	local SITE=0
+	local CODENAME=$(lsb_release -sc)
 	
 	# show list of countries in alphabetical order
 	cat /usr/share/mare/countries.list
@@ -55,15 +44,15 @@ edit_sources_list()
 		echo ""
 
 		# assign a value to a variable
-		MIRROR_LIST=$(sed -n '/'${COUNTRY}'/p' /usr/share/mare/mirror.list | awk 'FNR == 1 {print $1}')
+		MIRROR_LIST=$(grep "${COUNTRY}" /usr/share/mare/mirror.list | awk 'FNR == 1 {print $1}')
 		
 		# check entered country by user in the /usr/share/mare/mirror.list file
 		if [ "$MIRROR_LIST" = "$COUNTRY" ]; then
 			echo -e "${MESAGE}\n"
 			
 			# assign a value to a variable
-			MIRROR=$(sed -n '/'${COUNTRY}'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
-			
+			MIRROR=$(awk '$1 ~ /'${COUNTRY}'/ {print $2}' /usr/share/mare/mirror.list)
+
 			# show the list of mirrors for the specified country
 			for MIRROR in $MIRROR; do
 				/usr/lib/mare/speed.py $COUNTRY $MIRROR
@@ -77,12 +66,12 @@ edit_sources_list()
 				echo -n "Enter mirror: "
 				read MIRROR
 				# assign a value to a variable
-				LIST=$(sed -n '/'$MIRROR'/p' /usr/share/mare/mirror.list | cut -d"/" -f3)
+				LIST=$(awk '$2 ~ /'$MIRROR'/ {print $2}' /usr/share/mare/mirror.list)
 				
 				# verify user input is correct
 				if [ "$MIRROR" = "$LIST" ]; then
 					# assign a value to a variable
-					SITE=$(sed -n '/'${MIRROR}'/p' /usr/share/mare/mirror.list | awk 'FNR == 1 {print $2}')
+					SITE=$(awk '$2 ~ /'${MIRROR}'/ {print $2}' /usr/share/mare/mirror.list)
 					# get out of the loop
 					break
 				else
@@ -106,42 +95,45 @@ edit_sources_list()
 
 # ${CDROM}
 
-deb http://security.debian.org/debian-security buster/updates main contrib non-free
-# deb-src http://security.debian.org/debian-security buster/updates main contrib non-free
+deb http://security.debian.org/debian-security ${CODENAME}/updates main contrib non-free
+# deb-src http://security.debian.org/debian-security ${CODENAME}/updates main contrib non-free
 
-deb ${SITE} buster-proposed-updates main contrib non-free
-# deb-src ${SITE} buster-proposed-updates main contrib non-free
+deb ${SITE} ${CODENAME}-proposed-updates main contrib non-free
+# deb-src ${SITE} ${CODENAME}-proposed-updates main contrib non-free
 
-deb ${SITE} buster-updates main contrib non-free
-# deb-src ${SITE} buster-updates main contrib non-free
+deb ${SITE} ${CODENAME}-updates main contrib non-free
+# deb-src ${SITE} ${CODENAME}-updates main contrib non-free
 
-deb ${SITE} buster main contrib non-free
-# deb-src ${SITE} buster main contrib non-free
+deb ${SITE} ${CODENAME} main contrib non-free
+# deb-src ${SITE} ${CODENAME} main contrib non-free
 EOF
-	
 }
 
-###################### BEGIN ######################
-	
-# if this file exists, then delete it
-if [ -f /etc/apt/sources.list.d/base.list ]; then
-	rm /etc/apt/sources.list.d/base.list
-fi
-	
-if [ "$WORDS" = "non-free" ]; then
-	echo "Package sources are is already configured."
-else
-	# check the status of network interfaces
-	/usr/lib/mare/stifaces.sh
+main()
+{
+	# Variable for checking the contents of the /etc/apt/sources.list file
+	local WORDS=$(grep "non-free" /etc/apt/sources.list)
 
-	# configure package sources by editing the /etc/apt/sources.list file
-	edit_sources_list
+	# if this file exists, then delete it
+	if [ -f /etc/apt/sources.list.d/base.list ]; then
+		rm /etc/apt/sources.list.d/base.list
+	fi
+	
+	if [ -n "$WORDS" ]; then
+		echo "Package sources are is already configured."
+	else
+		# check the status of network interfaces
+		/usr/lib/mare/stifaces.sh
+		
+		# configure package sources by editing the /etc/apt/sources.list file
+		edit_sources_list
 			
-	# update the list of available packages
-	apt update
+		# update the list of available packages
+		apt update
 			
-	# upgrade the system by installing or updating packages
-	apt -y upgrade
-fi
+		# upgrade the system by installing or updating packages
+		apt -y upgrade
+	fi
+}
 
-###################### END ######################
+main
