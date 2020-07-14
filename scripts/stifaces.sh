@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # stifaces.sh - checks the status of network interfaces
 #
@@ -18,16 +18,26 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-STATE_FIRST_IFACE=$(ip a | awk 'FNR == 7 {print $9}')
-STATE_SECOND_IFACE=$(ip a | awk 'FNR == 9 {print $9}')
+state_ifaces()
+{
+	local STATE_WIRED_IFACE=$(ip a | awk 'FNR == 7 {print $9}')
+	local STATE_WIRELESS_IFACE=$(ip a | awk 'FNR == 9 {print $9}')
 
-if [ "$STATE_FIRST_IFACE" = "DOWN" ] | [ "$STATE_SECOND_IFACE" = "DOWN" ]; then
-	echo "`basename $0:` network connection not established."
-	if [ "$STATE_FIRST_IFACE" = "DOWN" ]; then
-		echo "Perhaps the network cable disconnected."
+	if [ "$STATE_WIRED_IFACE" = "DOWN" ] | [ "$STATE_WIRELESS_IFACE" = "DOWN" ]; then
+		echo "mare: network connection not established."
+		if [ "$STATE_WIRED_IFACE" = "DOWN" ]; then
+			echo "Perhaps the network cable disconnected."
+		fi
+		if [ "$STATE_WIRELESS_IFACE" = "DOWN" ]; then
+			echo "You may have entered the wrong access point name or password."
+		fi
+		exit 1
 	fi
-	if [ "$STATE_SECOND_IFACE" = "DOWN" ]; then
-		echo "You may have entered the wrong access point name or password."
-	fi
-	exit 1
-fi
+}
+
+main()
+{
+	state_ifaces
+}
+
+main
