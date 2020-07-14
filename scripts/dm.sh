@@ -18,8 +18,22 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# enable numlock by default for LightDM
-if [ -x /usr/sbin/lightdm ]; then
+check_distribution()
+{
+	local DISTRO=$()
+	
+	if [ -n "$DISTRO" ]; then
+		if [ -x /usr/sbin/lightdm ]; then
+			configure_lightdm
+		fi
+	else
+		echo "mare: you are using a different distribution GNU/Linux"
+	fi
+}
+
+configure_lightdm()
+{
+	# enable numlock by default for LightDM
 	if [ -x /usr/bin/numlockx ]; then
 		echo "The numlockx package is already installed on your system."
 	else
@@ -35,4 +49,11 @@ if [ -x /usr/sbin/lightdm ]; then
 		sed -i '1c\[Seat:*]' /usr/share/lightdm/lightdm.conf.d/01_user.conf
 		sed -i '1a\greeter-setup-script=/usr/bin/numlockx on' /usr/share/lightdm/lightdm.conf.d/01_user.conf
 	fi
-fi
+}
+
+main()
+{
+	check_distribution
+}
+
+main
