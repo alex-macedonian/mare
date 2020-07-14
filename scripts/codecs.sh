@@ -19,6 +19,19 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+check_distribution()
+{
+	local DEBIAN=$(awk '$1 ~ /Debian/ {print $1}' /usr/share/mare/version.list)	
+	
+	if [ -n "$DEBIAN" ]; then
+		edit_sources_list
+		check_package
+	else
+		echo "mare: this script only works with Debian GNU/Linux"
+		exit 1
+	fi
+}
+
 edit_sources_list()
 {
 	local STRING_MMEDIA=$(sed -n '19,20p' /etc/apt/sources.list)
@@ -99,18 +112,6 @@ clean_system()
 	rm -R /tmp/mare
 	apt-get -y clean > /dev/null
 	apt-get -y autoremove > /dev/null
-}
-
-check_distribution()
-{
-	local DEBIAN=$(awk '$1 ~ /Debian/ {print $1}' /usr/share/mare/version.list)	
-	
-	if [ -n "$DEBIAN" ]; then
-		edit_sources_list
-		check_package
-	else
-		echo "mare: this script only works with Debian GNU/Linux"
-	fi
 }
 
 main()

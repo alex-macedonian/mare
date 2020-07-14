@@ -20,12 +20,13 @@
 
 check_distribution()
 {
-	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $3}}' /usr/share/mare/version.list)
+	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
 	
 	if [ -n "$DISTRO" ]; then
 		configure_fstab
 	else
 		echo "mare: you are using a different distribution GNU/Linux"
+		exit 1
 	fi
 }
 
