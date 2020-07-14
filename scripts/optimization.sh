@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # optimization.sh - configures the dumping of pages of RAM into the
 # swap partition and the amount of RAM allocated for the cache
@@ -20,9 +20,31 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Variables for checking the contents of the /etc/sysctl.conf file
-SWAPPINESS=$(sysctl -a | grep "vm.swappiness")
-VFS_CACHE_PRESSURE=$(sysctl -a | grep "vm.vfs_cache_pressure")
+check_distribution()
+{
+	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
+	
+	if [ -n "$DISTRO" ]; then
+		optimization
+	else
+		echo "mare: you are using a different distribution GNU/Linux"
+		exit 1
+	fi
+}
+
+optimization()
+{
+	# Variables for checking the contents of the /etc/sysctl.conf file
+	local SWAPPINESS=$(sysctl -a | grep "vm.swappiness")
+	local VFS_CACHE_PRESSURE=$(sysctl -a | grep "vm.vfs_cache_pressure")
+
+	if [ "$SWAPPINESS" = "vm.swappiness = 60" ] & [ "$VFS_CACHE_PRESSURE" = "vm.vfs_cache_pressure = 100" ]; then
+		edit_sysctl_conf
+	else
+		echo "Resetting RAM pages to the swap section and the amount"
+		echo "of RAM allocated for the cache is already configured."
+	fi
+}
 
 # Edit the /etc/sysctl.conf file
 edit_sysctl_conf() 
@@ -50,9 +72,9 @@ edit_sysctl_conf()
 
 }
 
-if [ "$SWAPPINESS" = "vm.swappiness = 60" ] & [ "$VFS_CACHE_PRESSURE" = "vm.vfs_cache_pressure = 100" ]; then
-	edit_sysctl_conf
-else
-	echo "Resetting RAM pages to the swap section and the amount"
-	echo "of RAM allocated for the cache is already configured."
-fi
+main()
+{
+	check_distribution
+}
+
+main
