@@ -23,14 +23,14 @@ check_distribution()
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
 	
 	if [ -n "$DISTRO" ]; then
-		configure_fstab
+		edit_fstab
 	else
 		echo "mare: you are using a different distribution GNU/Linux"
 		exit 1
 	fi
 }
 
-configure_fstab()
+edit_fstab()
 {
 	local MESAGE="\
 Here you can specify the parameters for mounting the hard
