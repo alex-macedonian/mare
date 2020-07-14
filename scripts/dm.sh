@@ -20,7 +20,7 @@
 
 check_distribution()
 {
-	local DISTRO=$()
+	local DISTRO=$(awk '{if (($3 ~ "Debian") || ($3 ~ "LMDE")) {print $3}}' /usr/share/mare/version.list)
 	
 	if [ -n "$DISTRO" ]; then
 		if [ -x /usr/sbin/lightdm ]; then
