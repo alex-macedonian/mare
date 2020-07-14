@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # codecs.sh - sets up additional codecs in of the operating system 
 # Debian GNU/Linux
@@ -61,9 +61,9 @@ main()
 			echo "been added to the /etc/apt/sources.list file."
 		# otherwise edit the sources.list file
 		else
-			sed -i '17a\ ' /etc/apt/sources.list
-			sed -i '18a\deb '${SITE_MMEDIA}' buster main non-free' /etc/apt/sources.list
-			sed -i '19a\# deb-src '${SITE_MMEDIA}' buster main non-free' /etc/apt/sources.list
+			sed -i '14a\ ' /etc/apt/sources.list
+			sed -i '15a\deb '${SITE_MMEDIA}' buster main non-free' /etc/apt/sources.list
+			sed -i '16a\# deb-src '${SITE_MMEDIA}' buster main non-free' /etc/apt/sources.list
 		fi
 
 		# check if the package is installed
@@ -94,7 +94,7 @@ main()
 			apt-get -y autoremove > /dev/null
 		fi
 	else
-		echo "`basename $0:` this script only works with Debian GNU/Linux"
+		echo "mare: this script only works with Debian GNU/Linux"
 	fi
 }
 
