@@ -4,8 +4,9 @@ Performs various settings in the GNU/Linux OS after installation.
 Namely:
   configures network and Bluetooth;
   configures elevated privileges for the user;
-  configures packages sources and update the system by updating packages;
-  installs the videodrivers and microcode for the AMD or Intel processors;
+  configures packages sources and update the system;
+  configures the video cards and installs microcode
+  for the AMD or Intel processor;
   configures the bootloader of the operating system;
   configures filesystems table;
   improves system performance;
@@ -14,17 +15,18 @@ Namely:
   configures the LightDM display manager;
   configures the message of the day.
   
-  -n --netbt   configure network and Bluetooth
+  -i --ifaces  configure network and Bluetooth
                configure elevated privileges for the user
-  -d --drivers configure packages sources and update the system by updating packages
-               install the videodrivers and microcode for the AMD or Intel processors
+  -v --vcards  configure packages sources and update the system
+               configure the video cards and install microcode 
+               for the AMD or Intel processor
   -m --motd    configure the message of the day
 
   -h --help    show this help and exit
-  -v --version show version information and exit
+  -V --version show version information and exit
   
 Example:
-  mare -n configure network and Bluetooth, and then
+  mare -i configure network and Bluetooth, and then
           configure elevated privileges for the user
           
 The mare homepage: <https://github.com/alex-macedonian/mare>
