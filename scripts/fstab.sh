@@ -18,37 +18,50 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#################################
-#           VARIABLES           #
-#################################
+check_distribution()
+{
+	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $3}}' /usr/share/mare/version.list)
+	
+	if [ -n "$DISTRO" ]; then
+		configure_fstab
+	else
+		echo "mare: you are using a different distribution GNU/Linux"
+	fi
+}
 
-MESAGE="\
+configure_fstab()
+{
+	local MESAGE="\
 Here you can specify the parameters for mounting the hard
 drive to fine-tune them. Parameters: errors=remount-ro
 is best left unchanged. For example, you can specify them
 like this: rw,relatime,errors=remount-ro. See mount(8)
 for more information."
 
-NUMBER=0
-OPTIONS=0
-STRING=0
+	local NUMBER=0
+	local OPTIONS=0
+	local STRING=0
 
-###################### BEGIN ######################
-
-echo -e "${MASAGE}\n"
+	echo -e "${MASAGE}\n"
 	
-# show all lines of the file and number them
-sed -n -e '1,$p' -e '/$/=' /etc/fstab
-echo ""	
+	# show all lines of the file and number them
+	sed -n -e '1,$p' -e '/$/=' /etc/fstab
+	echo ""	
 
-while
-	echo -n "Enter string number («Q» - out): "
-	read NUMBER
-	[ $NUMBER != "q" ]; do
-	echo -n "Enter mount options: "
-	read OPTIONS
-	STRING=$(awk 'FNR == '${NUMBER}' {print $4}' /etc/fstab)
-	sed -i 's/'${STRING}'/'${OPTIONS}'/g' /etc/fstab
-done
+	while
+		echo -n "Enter string number («Q» - out): "
+		read NUMBER
+		[ $NUMBER != "q" ]; do
+		echo -n "Enter mount options: "
+		read OPTIONS
+		STRING=$(awk 'FNR == '${NUMBER}' {print $4}' /etc/fstab)
+		sed -i 's/'${STRING}'/'${OPTIONS}'/g' /etc/fstab
+	done
+}
 
-###################### END ######################
+main()
+{
+	check_distribution
+}
+
+main
