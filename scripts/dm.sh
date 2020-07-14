@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # dm.sh - configures the LightDM display manager
 #
