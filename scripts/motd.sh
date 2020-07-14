@@ -18,7 +18,40 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-DISTRO=$(awk '{if (($3 ~ "Debian") || ($3 ~ "LMDE")) {print $3}}' /usr/share/mare/version.list)
+check_distribution()
+{
+	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $3}}' /usr/share/mare/version.list)
+	
+	if [ -n "$DISTRO" ]; then
+		configure_motd
+	else
+		echo "mare: you are using a different distribution GNU/Linux"
+		exit 1
+	fi
+
+}
+
+# Setting up a dynamic message of the day. This is necessary
+# so that your console, after authentication, displays a
+# greeting and useful information about your operating system.
+configure_motd()
+{
+	# preparing to customize the message of the day
+	preparation_for_set_motd
+
+	if [ -f /etc/update-motd.d/00-welcome-header ]; then
+		chmod +x /etc/update-motd.d/00-welcome-header
+	fi
+
+	if [ -f /etc/update-motd.d/10-system-info ]; then
+		chmod +x /etc/update-motd.d/10-system-info
+	fi
+
+	if [ -f /etc/update-motd.d/20-connect-info ]; then
+		chmod +x /etc/update-motd.d/20-connect-info
+		check_packages
+	fi
+}
 
 # Preparing to customize the message of the day
 preparation_for_set_motd() 
@@ -47,40 +80,26 @@ preparation_for_set_motd()
 	
 }
 
-# Setting up a dynamic message of the day. This is necessary
-# so that your console, after authentication, displays a
-# greeting and useful information about your operating system.
-
-if [ -n "$DISTRO" ]; then
-	# preparing to customize the message of the day
-	preparation_for_set_motd
-
-	if [ -f /etc/update-motd.d/00-welcome-header ]; then
-		chmod +x /etc/update-motd.d/00-welcome-header
+check_packages()
+{
+	if [ -x /sbin/iwlist ]; then
+		echo "The wireless-tools package is already installed on your system."
+	else
+		# check the status of network interfaces
+		/usr/lib/mare/stifaces.sh
+		apt-get -y install wireless-tools
 	fi
-
-	if [ -f /etc/update-motd.d/10-system-info ]; then
-		chmod +x /etc/update-motd.d/10-system-info
-	fi
-
-	if [ -f /etc/update-motd.d/20-connect-info ]; then
-		chmod +x /etc/update-motd.d/20-connect-info
-
-		if [ -x /sbin/iwlist ]; then
-			echo "The wireless-tools package is already installed on your system."
-		else
-			# check the status of network interfaces
-			/usr/lib/mare/stifaces.sh
-			apt-get -y install wireless-tools
-		fi
 	
-		if [ -x /sbin/iw ]; then
-			echo "The iw package is already installed on your system."
-		else
-			apt-get -y install iw
-		fi
+	if [ -x /sbin/iw ]; then
+		echo "The iw package is already installed on your system."
+	else
+		apt-get -y install iw
 	fi
-else
-	echo "`basename $0:` you are using a different distribution GNU/Linux"
-	exit 1
-fi
+}
+
+main()
+{
+	check_distribution
+}
+
+main
