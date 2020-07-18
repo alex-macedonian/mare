@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
-# packges.sh - sets up additional packages for Debian GNU/Linux.
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# packges.sh - sets up additional packages
+#
+# Copyright (C) 2019 - 2020 Alexandre Popov <consiorp@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,18 +21,6 @@
 #################################
 #           VARIABLES           #
 #################################
-
-MESAGE="\
-Installing additional packages that are not shipped with
-the Debian GNU/Linux 10 operating system distribution kit.
-You can select any package from the list for its subsequent
-installation."
-
-NUMBER=0
-PACKAGE_NAME=0
-FILE=0
-LIBREOFFICE_CORE_PACKGE=$(dpkg -l 2> /dev/null | awk '$2 ~ /libreoffice-core/ {print $2}')
-GIMP_PACKGE=$(dpkg -l 2> /dev/null | awk '$2 ~ /gimp/ {print $2}')
 
 declare -a possible_packages
 possible_packages[0]="skype"
@@ -82,66 +71,103 @@ declare -gA help_packs
 help_packs["ru_RU.UTF-8",0]="libreoffice-help-ru"
 help_packs["ru_RU.UTF-8",1]="gimp-help-ru"
 
-###################### BEGIN ######################
-
-# check the status of network interfaces
-/usr/lib/mare/stifaces.sh
-
-echo -e "${MESAGE}\n"
-
-# preparation for installing additional packages
-# create a directory to store temporary files
-mkdir -p /tmp/mare 
-# show a list of possible packages for installation
-cat /usr/share/mare/package.list
-
-# create files containing package names for installation
-while
-	echo -n "Enter a package number («Q» - out): "
-	read NUMBER 
-	[ "$NUMBER" != "q" ]; do
-	PACKAGE_NAME=$(dpkg -l 2> /dev/null | grep ${possible_packages[$NUMBER]} | awk 'FNR == 1 {print $2}')
-	if [ "$PACKAGE_NAME" = "${possible_packages[$NUMBER]}" ]; then
-		echo "This package is already installed on your system."
+check_distribution()
+{
+	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
+	
+	if [ -n "$DISTRO" ]; then
+		preparation_for_installation
 	else
-		echo "${possible_packages[$NUMBER]}" > /tmp/mare/package$NUMBER
+		echo "mare: you are using a different distribution GNU/Linux"
+		exit 1
 	fi
-done
+
+}
+
+# Preparation for installing additional packages
+preparation_for_installation()
+{
+	# check the status of network interfaces
+	/usr/lib/mare/stifaces.sh
+
+	# create a directory to store temporary files
+	mkdir -p /tmp/mare 
+	# show a list of possible packages for installation
+	cat /usr/share/mare/package.list
+	# create files containing package names for installation
+	create_lists_for_installation
+}
+
+# Create files containing package names for installation
+create_lists_for_installation()
+{
+	local NUMBER=0
+	local PACKAGE_NAME=0
+
+	while
+		echo -n "Enter a package number («Q» - out): "
+		read NUMBER 
+		[ "$NUMBER" != "q" ]; do
+		PACKAGE_NAME=$(dpkg -l 2> /dev/null | grep -m 1 -o "${possible_packages[$NUMBER]}")
+		if [ "$PACKAGE_NAME" = "${possible_packages[$NUMBER]}" ]; then
+			echo "This package is already installed on your system."
+		else
+			echo "${possible_packages[$NUMBER]}" > /tmp/mare/package$NUMBER
+		fi
+	done
 	
-# installation of selected packages
-for package in {/tmp/mare/package*}; do
-	FILE=$(cat /tmp/mare/package*)
-	if [ "$FILE" = "skype" ]; then
-		apt-get -y install snapd
-		snap install skype --classic
-	else
-		apt-get -y install $FILE
-	fi
-done
+	install_of_selected_packages
+}
 
-if [ "$LANG" = "ru_RU.UTF-8" ]; then
-	# install help and localization packages for some programs according to
-	# the regional settings of the system
-	if [ -f /usr/lib/firefox-esr/firefox-esr ]; then
-		apt-get -y install ${language_packs[$LANG,0]}
-	fi
+install_of_selected_packages()
+{
+	local FILE=0
 
-	if [ -n "$LIBREOFFICE_CORE_PACKGE" ]; then
-		apt-get -y install ${language_packs[$LANG,1]}
-	fi
+	for package in {/tmp/mare/package*}; do
+		FILE=$(cat /tmp/mare/package*)
+		if [ "$FILE" = "skype" ]; then
+			apt-get -y install snapd
+			snap install skype --classic
+		else
+			apt-get -y install $FILE
+		fi
+	done
+	
+	install_help_and_localization_packages
+}
 
-	if [ -n "$LIBREOFFICE_CORE_PACKGE" ]; then
-		apt-get -y install ${help_packs[$LANG,0]}
+# Install help and localization packages for some programs
+# according to the regional settings of the system
+install_help_and_localization_packages()
+{
+	if [ "$LANG" = "ru_RU.UTF-8" ]; then
+		if [ -x /usr/lib/firefox-esr/firefox-esr ]; then
+			apt-get -y install ${language_packs[$LANG,0]}
+		fi
+
+		if [ -x /usr/bin/lowriter ]; then
+			apt-get -y install ${language_packs[$LANG,1]}
+			apt-get -y install ${help_packs[$LANG,0]}
+		fi
+	
+		if [ -h /usr/bin/gimp ]; then
+			apt-get -y install ${help_packs[$LANG,1]}
+		fi
 	fi
 	
-	if [ -n "$GIMP_PACKGE" ]; then
-		apt-get -y install ${help_packs[$LANG,1]}
-	fi
-fi
+	clean_system
+}
 	
-# clean up garbage after installing packages
-echo "Cleaning the system from unnecessary files and directories."	
-rm -R /tmp/mare
-apt-get -y clean > /dev/null
+clean_system()
+{
+	echo "Cleaning the system from unnecessary files and directories."	
+	rm -R /tmp/mare
+	apt-get -y clean > /dev/null
+}
 
-###################### END ######################
+main()
+{
+	check_distribution
+}
+
+main
