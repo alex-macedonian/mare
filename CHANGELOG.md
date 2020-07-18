@@ -1,17 +1,21 @@
 ## Mare 3.1 (2020)
 
-	The menu.sh module removed
+	The sources.py module that measures the data transfer 
+	rate and updates the operating system added
+	The speed.py and sysupdate.sh modules removed
+	In all shell scripts, the programming style has been 
+	changed from procedural to functional
 	The check_utils function to the mare module added
-	In motd.sh module added installing dependencies for the correct operation of message scripts of the day
+	In motd.sh module added installing dependencies for the correct 
+	operation of message scripts of the day
 	The sudo.sh module completely redesigned
-	The module for measuring data transfer rate added
-	Support for various equipment added to the netbt.sh module
+	The speed.py module for measuring data transfer rate added
+	Support for various equipment added to the ifaces.sh module
 	Modules optimization done
 	The wificon.sh module removed
-	The menu.sh module added
-	Modules fixed
+	Bugs in the modules corrected
 	Russian language translation in the format gettext removed
-	The script is divided into separate modules
+	The mare script is divided into separate modules
 
 ## Mare 3.0 (20200527)
 
@@ -33,7 +37,7 @@
 	Ability to configure a LightDM added
 	Bugs corrected
 
-## Mare 1.01 (20190811)	
+## Mare 1.1 (20190811)	
 
  	Russian language translation added	
  	English and Russian languages added	
