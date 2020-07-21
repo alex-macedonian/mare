@@ -20,10 +20,13 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+LC_ALL=C
+export LC_ALL
+
 check_distribution()
 {
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-	
+
 	if [ -n "$DISTRO" ]; then
 		optimization
 	else
@@ -47,9 +50,9 @@ optimization()
 }
 
 # Edit the /etc/sysctl.conf file
-edit_sysctl_conf() 
+edit_sysctl_conf()
 {
-	
+
 	# The variable shows the size of RAM in the operating system
 	local MEM_TOTAL=$(free --mega | awk 'FNR == 2 {print $2}')
 

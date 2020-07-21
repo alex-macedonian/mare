@@ -18,10 +18,13 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+LC_ALL=C
+export LC_ALL
+
 check_distribution()
 {
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-	
+
 	if [ -n "$DISTRO" ]; then
 		edit_fstab
 	else
@@ -44,10 +47,10 @@ for more information."
 	local STRING=0
 
 	echo -e "${MASAGE}\n"
-	
+
 	# show all lines of the file and number them
 	sed -n -e '1,$p' -e '/$/=' /etc/fstab
-	echo ""	
+	echo ""
 
 	while
 		echo -n "Enter string number («Q» - out): "

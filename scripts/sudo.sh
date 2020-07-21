@@ -18,6 +18,9 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+LC_ALL=C
+export LC_ALL
+
 check_distribution()
 {
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
@@ -49,7 +52,7 @@ edit_sudoers()
 			# The HOST=(ALL: ALL) ALL snippet means that a user with the alias
 			# ADMIN can use the sudo package to execute commands in root mode.
 			# The word HOST means the assigned hostname alias. The word ALL
-			# means "any command." Additional parameters (ALL: ALL) mean that 
+			# means "any command." Additional parameters (ALL: ALL) mean that
 			# a user with the alias ADMIN can run commands, like any other user
 			# any group.
 			sed -i '20a\ADMIN	HOST=(ALL:ALL) ALL' /etc/sudoers

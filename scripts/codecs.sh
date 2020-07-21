@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# codecs.sh - sets up additional codecs in of the operating system 
+# codecs.sh - sets up additional codecs in of the operating system
 # Debian GNU/Linux
 #
 # Copyright (C) 2019 - 2020 Alexandre Popov <consiorp@gmail.com>.
@@ -19,10 +19,13 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+LC_ALL=C
+export LC_ALL
+
 check_distribution()
 {
-	local DEBIAN=$(awk '$1 ~ /Debian/ {print $1}' /usr/share/mare/version.list)	
-	
+	local DEBIAN=$(awk '$1 ~ /Debian/ {print $1}' /usr/share/mare/version.list)
+
 	if [ -n "$DEBIAN" ]; then
 		edit_sources_list
 		check_package
@@ -35,7 +38,7 @@ check_distribution()
 edit_sources_list()
 {
 	local STRING_MMEDIA=$(sed -n '19,20p' /etc/apt/sources.list)
-	
+
 	# check contents of sources.list file
 	# if the necessary lines exist in it, then inform the user about it
 	if [ -n "$STRING_MMEDIA" ]; then
@@ -64,7 +67,7 @@ check_package()
 		cd /tmp/mare
 		# download the deb-multimedia-keyring package to the current working directory
 		wget $SITE_MMEDIA/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2016.8.1_all.deb
-		
+
 		# return to user home directory
 		cd
 		# install the deb-multimedia-keyring package
@@ -77,7 +80,7 @@ check_package()
 	fi
 }
 
-install_additional_codecs() 
+install_additional_codecs()
 {
 	local SYS_ARCH=$(arch)
 	local PACKAGE_LIST=0
@@ -91,7 +94,7 @@ install_additional_codecs()
 		echo " w64codecs" > /tmp/mare/package.list
 		;;
 	esac
-	
+
 	if [ -x /lib/firefox-esr/firefox-esr ]; then
 		sed -i 's/ */flashplayer-mozilla /' /tmp/mare/package.list
 	fi

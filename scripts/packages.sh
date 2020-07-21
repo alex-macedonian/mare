@@ -22,6 +22,9 @@
 #           VARIABLES           #
 #################################
 
+LC_ALL=C
+export LC_ALL
+
 declare -a possible_packages
 possible_packages[0]="skype"
 possible_packages[1]="chromium"
@@ -74,7 +77,7 @@ help_packs["ru_RU.UTF-8",1]="gimp-help-ru"
 check_distribution()
 {
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-	
+
 	if [ -n "$DISTRO" ]; then
 		preparation_for_installation
 	else
@@ -91,7 +94,7 @@ preparation_for_installation()
 	/usr/lib/mare/stifaces.sh
 
 	# create a directory to store temporary files
-	mkdir -p /tmp/mare 
+	mkdir -p /tmp/mare
 	# show a list of possible packages for installation
 	cat /usr/share/mare/package.list
 	# create files containing package names for installation
@@ -106,7 +109,7 @@ create_lists_for_installation()
 
 	while
 		echo -n "Enter a package number («Q» - out): "
-		read NUMBER 
+		read NUMBER
 		[ "$NUMBER" != "q" ]; do
 		PACKAGE_NAME=$(dpkg -l 2> /dev/null | grep -m 1 -o "${possible_packages[$NUMBER]}")
 		if [ "$PACKAGE_NAME" = "${possible_packages[$NUMBER]}" ]; then
@@ -115,7 +118,7 @@ create_lists_for_installation()
 			echo "${possible_packages[$NUMBER]}" > /tmp/mare/package$NUMBER
 		fi
 	done
-	
+
 	install_of_selected_packages
 }
 
@@ -132,7 +135,7 @@ install_of_selected_packages()
 			apt-get -y install $FILE
 		fi
 	done
-	
+
 	install_help_and_localization_packages
 }
 
@@ -149,18 +152,18 @@ install_help_and_localization_packages()
 			apt-get -y install ${language_packs[$LANG,1]}
 			apt-get -y install ${help_packs[$LANG,0]}
 		fi
-	
+
 		if [ -h /usr/bin/gimp ]; then
 			apt-get -y install ${help_packs[$LANG,1]}
 		fi
 	fi
-	
+
 	clean_system
 }
-	
+
 clean_system()
 {
-	echo "Cleaning the system from unnecessary files and directories."	
+	echo "Cleaning the system from unnecessary files and directories."
 	rm -R /tmp/mare
 	apt-get -y clean > /dev/null
 }

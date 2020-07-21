@@ -18,10 +18,13 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+LC_ALL=C
+export LC_ALL
+
 check_distribution()
 {
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-	
+
 	if [ -n "$DISTRO" ]; then
 		if [ -x /usr/sbin/lightdm ]; then
 			configure_lightdm
@@ -42,7 +45,7 @@ configure_lightdm()
 		/usr/lib/mare/stifaces.sh
 		apt-get -y install numlockx
 	fi
-	
+
 	if [ -f /usr/share/lightdm/lightdm.conf.d/01_user.conf ]; then
 		echo "The configuration file for LightDM already exists."
 	else

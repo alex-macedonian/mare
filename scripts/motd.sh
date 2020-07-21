@@ -18,10 +18,13 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+LC_ALL=C
+export LC_ALL
+
 check_distribution()
 {
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-	
+
 	if [ -n "$DISTRO" ]; then
 		configure_motd
 	else
@@ -54,7 +57,7 @@ configure_motd()
 }
 
 # Preparing to customize the message of the day
-preparation_for_set_motd() 
+preparation_for_set_motd()
 {
 
 	local LOGIN_FILE=$(awk 'FNR == 91 {print}' /etc/pam.d/login)
@@ -68,7 +71,7 @@ preparation_for_set_motd()
 	fi
 
 	# check priority of message output of the day
-	# if the message about the last user authentication is displayed before the message  
+	# if the message about the last user authentication is displayed before the message
 	# of the day, prompt the user to fix this by editing the /etc/pam.d/login file
 	if [ "$LOGIN_FILE" = "session    optional   pam_lastlog.so" ]; then
 		sed -i '100i\# Prints the last login info upon successful login' /etc/pam.d/login
@@ -77,7 +80,7 @@ preparation_for_set_motd()
 		sed -i '103i\ ' /etc/pam.d/login
 		sed -i '89,92d' /etc/pam.d/login
 	fi
-	
+
 }
 
 check_packages()
@@ -89,7 +92,7 @@ check_packages()
 		/usr/lib/mare/stifaces.sh
 		apt-get -y install wireless-tools
 	fi
-	
+
 	if [ -x /sbin/iw ]; then
 		echo "The iw package is already installed on your system."
 	else
