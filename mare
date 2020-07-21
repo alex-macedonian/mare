@@ -40,7 +40,7 @@ check_file_size()
 	local FILE_SIZE=$(cat /usr/share/mare/version.list | head -n1)
 	
 	if [ -z "$FILE_SIZE" ]; then
-		check_utils > /usr/share/mare/version.list
+		check_utils >> /usr/share/mare/version.list
 	fi
 }
 
@@ -149,6 +149,14 @@ usage()
 			;;
 			-m | --motd )
 			/usr/lib/mare/motd.sh
+			;;
+			-r | --rest )
+			/usr/lib/mare/grub.sh
+			/usr/lib/mare/fstab.sh
+			/usr/lib/mare/optimization.sh
+			/usr/lib/mare/packages.sh
+			/usr/lib/mare/codecs.sh
+			/usr/lib/mare/dm.sh
 			;;
 			-h | --help )
 			cat /usr/share/mare/usage.list

@@ -1,19 +1,20 @@
 Usage: mare [OPTION]
 
-Performs various settings in the GNU/Linux OS after installation.
+Tool the home computer setup. He performs various
+settings in the GNU/Linux OS after installation. 
 Namely:
-  configures network and Bluetooth;
-  configures elevated privileges for the user;
-  configures packages sources and update the system;
-  configures the video cards and installs microcode
-  for the AMD or Intel processor;
-  configures the bootloader of the operating system;
-  configures filesystems table;
-  improves system performance;
-  sets up additional packages;
-  sets up additional codecs;
-  configures the LightDM display manager;
-  configures the message of the day.
+  - configures network and Bluetooth;
+  - configures elevated privileges for the user;
+  - configures packages sources and update the system;
+  - configures the video cards and installs microcode
+    for the AMD or Intel processor;
+  - configures the message of the day;
+  - configures the bootloader of the operating system;
+  - configures filesystems table;
+  - improves system performance;
+  - sets up additional packages;
+  - sets up additional codecs;
+  - configures the LightDM display manager.
   
   -i --ifaces  configure network and Bluetooth
                configure elevated privileges for the user
@@ -21,6 +22,8 @@ Namely:
                configure the video cards and install microcode 
                for the AMD or Intel processor
   -m --motd    configure the message of the day
+  -r --rest    do the rest of the settings and install additional
+               packages and codecs
 
   -h --help    show this help and exit
   -V --version show version information and exit
