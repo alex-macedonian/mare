@@ -85,18 +85,12 @@ preparation_for_set_motd()
 
 check_packages()
 {
-	if [ -x /sbin/iwlist ]; then
-		echo "The wireless-tools package is already installed on your system."
+	if [ -x /sbin/iwlist ] & [ -x /sbin/iw ]; then
+		echo "The wireless-tools and iw packages is already installed on your system."
 	else
 		# check the status of network interfaces
 		/usr/lib/mare/stifaces.sh
-		apt-get -y install wireless-tools
-	fi
-
-	if [ -x /sbin/iw ]; then
-		echo "The iw package is already installed on your system."
-	else
-		apt-get -y install iw
+		apt-get -y install wireless-tools iw
 	fi
 }
 
