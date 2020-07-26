@@ -21,16 +21,10 @@
 LC_ALL=C
 export LC_ALL
 
-check_distribution()
+check_dm()
 {
-	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-
-	if [ -n "$DISTRO" ]; then
-		if [ -x /usr/sbin/lightdm ]; then
-			configure_lightdm
-		fi
-	else
-		echo "mare: you are using a different distribution GNU/Linux"
+	if [ -x /usr/sbin/lightdm ]; then
+		configure_lightdm
 	fi
 }
 
@@ -56,7 +50,7 @@ configure_lightdm()
 
 main()
 {
-	check_distribution
+	check_dm
 }
 
 main
