@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
-# grub.sh - configures bootloader operating system Debian GNU/Linux.
-# Copyright (C) 2019 - 2020 Alexandre Popov <amocedonian@gmail.com>.
+# grub.sh - configures bootloader operating system Debian GNU/Linux
+#
+# Copyright (C) 2019 - 2020 Alexandre Popov <consiorp@gmail.com>.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -17,22 +18,88 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-#################################
-#           VARIABLES           #
-#################################
+LC_ALL=C
+export LC_ALL
 
-# Variable for checking the contents of the  /etc/default/grub file
-TIMEOUT=$(awk 'FNR == 7 {print}' /etc/default/grub)
+check_distribution()
+{
+	local DISTRO=$(awk '$1 ~ /Debian/ {print $1}' /usr/share/mare/version.list)
 
-###################### BEGIN ######################
+	if [ -n "$DISTRO" ]; then
+		check_string
+	else
+		echo "mare: you are using a different distribution GNU/Linux"
+	fi
+}
 
-if [ "$TIMEOUT" = "GRUB_TIMEOUT=5" ]; then
-	sed -i '7i\GRUB_TIMEOUT_STYLE=hidden' /etc/default/grub
-	sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
-	sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/GRUB_CMDLINE_LINUX_DEFAULT=""/g' /etc/default/grub
-	update-grub > /dev/null
-else
-	echo "The operating system bootloader is already configured."
-fi
+check_string()
+{
+	# Variable for checking the contents of the  /etc/default/grub file
+	local CMDLINE_LINUX_DEFAULT=$(grep -o "quiet splash" /etc/default/grub)
+	
+	if [ -z "$CMDLINE_LINUX_DEFAULT" ]; then
+		check_other_os
+	else
+		echo "The operating system bootloader is already configured."
+	fi
+}
 
-###################### END ######################
+check_other_os()
+{
+	local CHECK_OTHER_OS=$(os-prober | cut -d":" -f2)
+	# Variable for checking the contents of the  /etc/default/grub file
+	local TIMEOUT_STYLE=$(grep -o "hidden" /etc/default/grub)
+	
+	if [ -n "$CHECK_OTHER_OS" ]; then
+		check_plymouth
+	else
+		if [ -z "$TIMEOUT_STYLE" ]; then
+			sed -i '7i\GRUB_TIMEOUT_STYLE=hidden' /etc/default/grub
+			sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
+		fi
+		check_plymouth
+	fi
+}
+
+check_plymouth()
+{
+	if [ -x /bin/plymouth ]; then
+		configure_grub
+	else
+		/usr/lib/mare/stifaces.sh
+		apt-get install plymouth plymouth-label
+		configure_grub
+	fi
+}
+
+configure_grub()
+{
+	local ANSWER=0	
+
+	while
+		echo -n "Install the mare theme for Grub (y/n)? "
+		read ANSWER
+		[ "$ANSWER" != "n" ]; do
+		if [ "$ANSWER" = "y" ]; then
+			# install the Mare theme for the operating system bootloader
+			chmod +x /etc/grub.d/06_mare_theme
+			sed -i 's/quiet/quiet splash/g' /etc/default/grub
+			update-grub
+			# install default theme for plymouth
+			plymouth-set-default-theme -R futureprototype
+			break
+		fi
+	done
+
+	sed -i 's/quiet/quiet splash/g' /etc/default/grub
+	update-grub
+	# install default theme for plymouth
+	plymouth-set-default-theme -R futureprototype
+}
+
+main()
+{
+	check_distribution
+}
+
+main
