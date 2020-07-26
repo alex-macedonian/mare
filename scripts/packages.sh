@@ -74,19 +74,6 @@ declare -gA help_packs
 help_packs["ru_RU.UTF-8",0]="libreoffice-help-ru"
 help_packs["ru_RU.UTF-8",1]="gimp-help-ru"
 
-check_distribution()
-{
-	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-
-	if [ -n "$DISTRO" ]; then
-		preparation_for_installation
-	else
-		echo "mare: you are using a different distribution GNU/Linux"
-		exit 1
-	fi
-
-}
-
 # Preparation for installing additional packages
 preparation_for_installation()
 {
@@ -170,7 +157,7 @@ clean_system()
 
 main()
 {
-	check_distribution
+	preparation_for_installation
 }
 
 main
