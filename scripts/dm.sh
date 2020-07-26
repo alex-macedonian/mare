@@ -31,7 +31,6 @@ check_distribution()
 		fi
 	else
 		echo "mare: you are using a different distribution GNU/Linux"
-		exit 1
 	fi
 }
 

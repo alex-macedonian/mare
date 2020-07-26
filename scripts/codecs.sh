@@ -31,7 +31,6 @@ check_distribution()
 		check_package
 	else
 		echo "mare: this script only works with Debian GNU/Linux"
-		exit 1
 	fi
 }
 
