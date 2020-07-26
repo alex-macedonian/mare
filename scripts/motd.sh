@@ -21,19 +21,6 @@
 LC_ALL=C
 export LC_ALL
 
-check_distribution()
-{
-	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-
-	if [ -n "$DISTRO" ]; then
-		configure_motd
-	else
-		echo "mare: you are using a different distribution GNU/Linux"
-		exit 1
-	fi
-
-}
-
 # Setting up a dynamic message of the day. This is necessary
 # so that your console, after authentication, displays a
 # greeting and useful information about your operating system.
@@ -96,7 +83,7 @@ check_packages()
 
 main()
 {
-	check_distribution
+	configure_motd
 }
 
 main
