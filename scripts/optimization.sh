@@ -23,18 +23,6 @@
 LC_ALL=C
 export LC_ALL
 
-check_distribution()
-{
-	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-
-	if [ -n "$DISTRO" ]; then
-		optimization
-	else
-		echo "mare: you are using a different distribution GNU/Linux"
-		exit 1
-	fi
-}
-
 optimization()
 {
 	# Variables for checking the contents of the /etc/sysctl.conf file
@@ -77,7 +65,7 @@ edit_sysctl_conf()
 
 main()
 {
-	check_distribution
+	optimization
 }
 
 main
