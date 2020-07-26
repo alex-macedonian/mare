@@ -21,19 +21,6 @@
 LC_ALL=C
 export LC_ALL
 
-check_distribution()
-{
-	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-
-	if [ -n "$DISTRO" ]; then
-		if [ -x /usr/sbin/lightdm ]; then
-			configure_network_manager
-		fi
-	else
-		echo "mare: you are using a different distribution GNU/Linux"
-	fi
-}
-
 configure_network_manager() 
 {
 	
@@ -56,7 +43,7 @@ configure_network_manager()
 
 main()
 {
-	check_distribution
+	configure_network_manager
 }
 
 main

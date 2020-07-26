@@ -21,18 +21,6 @@
 LC_ALL=C
 export LC_ALL
 
-check_distribution()
-{
-	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
-
-	if [ -n "$DISTRO" ]; then
-		edit_sudoers
-	else
-		echo "mare: you are using a different distribution GNU/Linux"
-		exit 1
-	fi
-}
-
 edit_sudoers()
 {
 	local ROOT_USER=$(grep "root" /etc/passwd | cut -d":" -f1)
@@ -62,7 +50,7 @@ edit_sudoers()
 
 main()
 {
-	check_distribution
+	edit_sudoers
 }
 
 main
