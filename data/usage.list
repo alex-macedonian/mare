@@ -3,34 +3,26 @@ Usage: mare [OPTION]
 Tool the home computer setup. He performs various
 settings in the GNU/Linux OS after installation. 
 Namely:
-  - configures network and Bluetooth;
+  - configures the message of the day;
   - configures elevated privileges for the user;
   - configures packages sources and update the system;
-  - configures the video cards and installs microcode
-    for the AMD or Intel processor;
-  - configures the message of the day;
+  - configures Network Manager;
+  - configures the video cards from Nvidia
   - configures the bootloader of the operating system;
-  - configures filesystems table;
   - improves system performance;
   - sets up additional packages;
   - sets up additional codecs;
   - configures the LightDM display manager.
-  
-  -i --ifaces  configure network and Bluetooth
-               configure elevated privileges for the user
-  -v --vcards  configure packages sources and update the system
-               configure the video cards and install microcode 
-               for the AMD or Intel processor
+
   -m --motd    configure the message of the day
   -r --rest    do the rest of the settings and install additional
                packages and codecs
 
   -h --help    show this help and exit
-  -V --version show version information and exit
+  -v --version show version information and exit
   
 Example:
-  mare -i configure network and Bluetooth, and then
-          configure elevated privileges for the user
+  mare -m configure the message of the day
           
 The mare homepage: <https://github.com/alex-macedonian/mare>
 The error messages send to address: <bugs.mare@gmail.com>
