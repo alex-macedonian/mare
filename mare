@@ -152,11 +152,13 @@ usage()
 
 	while [ "$#" -gt 0 ]; do
 		case "$1" in
+			-s | --sudo
+			/usr/lib/mare/sudo.sh
+			;;
 			-m | --motd )
 			/usr/lib/mare/motd.sh
 			;;
 			-r | --rest )
-			/usr/lib/mare/sudo.sh
 			/usr/lib/mare/sources.py
 			/usr/lib/mare/netman.sh
 			/usr/lib/mare/nvidia.sh

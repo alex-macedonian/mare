@@ -3,8 +3,8 @@ Usage: mare [OPTION]
 Tool the home computer setup. He performs various
 settings in the GNU/Linux OS after installation. 
 Namely:
-  - configures the message of the day;
   - configures elevated privileges for the user;
+  - configures the message of the day;
   - configures packages sources and update the system;
   - configures Network Manager;
   - configures the video cards from Nvidia
@@ -14,6 +14,7 @@ Namely:
   - sets up additional codecs;
   - configures the LightDM display manager.
 
+  -s --sudo    configure elevated privileges for the user
   -m --motd    configure the message of the day
   -r --rest    do the rest of the settings and install additional
                packages and codecs
