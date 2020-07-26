@@ -26,11 +26,23 @@ check_root()
 	local USER_ID=$(id -u)
 	
 	if [ "$USER_ID" = "0" ]; then
-		check_file_size
-		check_shell
+		check_pycurl_module
 	else
 		echo "`basename $0:` root is not found"
 		echo "Run the mare script as root."
+		exit 1
+	fi
+}
+
+check_pycurl_module()
+{
+	if [ -f /usr/lib/python3/dist-packages/pycurl.cpython-*-linux-gnu.so ]; then
+		check_file_size
+		check_shell
+	else
+		echo "`basename $0:` the python3-pycurl package is not found"
+		echo "Please install the python3-pycurl package for the script"
+		echo "to work correctly."
 		exit 1
 	fi
 }
