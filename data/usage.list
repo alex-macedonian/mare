@@ -7,7 +7,8 @@ Namely:
   - configures the message of the day;
   - configures packages sources and update the system;
   - configures Network Manager;
-  - installs the drivers for video cards from Nvidia
+  - installs the proprietary drivers for video cards
+    from Nvidia;
   - configures the bootloader of the operating system;
   - improves system performance;
   - sets up additional packages;
