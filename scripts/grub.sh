@@ -88,6 +88,8 @@ configure_grub()
 			# install default theme for plymouth
 			plymouth-set-default-theme -R futureprototype
 			break
+		else
+			echo "mare: you entered an invalid character"
 		fi
 	done
 
