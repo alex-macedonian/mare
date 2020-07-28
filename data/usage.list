@@ -7,13 +7,13 @@ Namely:
   - configures the message of the day;
   - configures packages sources and update the system;
   - configures Network Manager;
-  - installs the proprietary drivers for video cards
-    from Nvidia;
   - configures the bootloader of the operating system;
   - improves system performance;
   - sets up additional packages;
   - sets up additional codecs;
-  - configures the LightDM display manager.
+  - configures the LightDM display manager;
+  - installs the proprietary drivers for video cards
+    from Nvidia.
 
   -s --sudo    configure elevated privileges for the user
   -m --motd    configure the message of the day
