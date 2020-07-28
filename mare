@@ -173,12 +173,12 @@ usage()
 			-r | --rest )
 			/usr/lib/mare/sources.py
 			/usr/lib/mare/netman.sh
-			/usr/lib/mare/nvidia.sh
 			/usr/lib/mare/grub.sh
 			/usr/lib/mare/optimization.sh
 			/usr/lib/mare/packages.sh
 			/usr/lib/mare/codecs.sh
 			/usr/lib/mare/dm.sh
+			/usr/lib/mare/nvidia.sh
 			;;
 			-h | --help )
 			cat /usr/share/mare/usage.list
