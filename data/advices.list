@@ -1,0 +1,11 @@
+
+Video driver installation is complete. You need to configure it 
+manually. To do this, you will go to the following link after 
+restarting your computer:
+https://wiki.debian.org/NvidiaGraphicsDrivers.
+
+Reboot your system (the nouveau module should automatically
+be added to the blacklist, otherwise do it manually).
+Press enter...
+
+
