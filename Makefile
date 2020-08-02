@@ -3,48 +3,71 @@ SHELL := /bin/bash
 
 .PHONY: build install uninstall
 
-prefix ?= /usr/sbin
-rootdir ?= /root
-homedir ?= /home/$(USERNAME)
-confdir ?= /etc
+USER_NAME := `grep "video" /etc/group | cut -d":" -f4`
+
+BINDIR ?= /usr/bin
+ROOTDIR ?= /root
+HOMEDIR ?= /home/$(USER_NAME)
+CONFDIR ?= /etc
 
 INSTALL = install
+MAKE = @make
+ECHO = @echo
+SED = @sed
+CHMOD = @chmod
+REMOVE = @rm
+IF = @if
+THEN = @then
+FI = @fi
 
 build:
-	@echo "Nothing to build"
+	$(ECHO) "Nothing to build"
 	
 install:
-	$(INSTALL) mare $(prefix)/
-	$(INSTALL) .bash_logout $(rootdir)/
-	$(INSTALL) .bashrc $(rootdir)/
-	$(INSTALL) .profile $(rootdir)/
-	$(INSTALL) .bash_logout $(homedir)/
-	$(INSTALL) .bashrc $(homedir)/
-	sed -i 's/01;31/01;32/' $(homedir)/.bashrc
-	$(INSTALL) .profile $(homedir)/
-	$(INSTALL) 00-welcome-header $(confdir)/update-motd.d/
-	chmod -x $(confdir)/update-motd.d/00-welcome-header
-	$(INSTALL) 10-system-info $(confdir)/update-motd.d/
-	chmod -x $(confdir)/update-motd.d/10-system-info
-	$(INSTALL) 20-connect-info $(confdir)/update-motd.d/
-	chmod -x $(confdir)/update-motd.d/20-connect-info
-	$(INSTALL) 06_mare_theme $(confdir)/grub.d/
-	chmod -x $(confdir)/grub.d/05_debian_theme
-	@make -C data install DESTDIR=$(DESTDIR)
-	@update-grub
+	# scripts of the shell
+	$(INSTALL) mare $(BINDIR)/
+	$(MAKE) -C scripts install DESTDIR=$(DESTDIR)
+	# the launch files
+	$(INSTALL) .bash_logout $(ROOTDIR)/
+	$(INSTALL) .bashrc $(ROOTDIR)/
+	$(INSTALL) .profile $(ROOTDIR)/
+	$(INSTALL) .bash_logout $(HOMEDIR)/
+	$(INSTALL) .bashrc $(HOMEDIR)/
+	$(INSTALL) .profile $(HOMEDIR)/
+	$(SED) -i 's/01;31/01;32/' $(HOMEDIR)/.bashrc
+	# The MOTD files
+	$(INSTALL) 00-welcome-header $(CONFDIR)/update-motd.d/
+	$(CHMOD) -x $(CONFDIR)/update-motd.d/00-welcome-header
+	$(INSTALL) 10-system-info $(CONFDIR)/update-motd.d/
+	$(CHMOD) -x $(CONFDIR)/update-motd.d/10-system-info
+	$(INSTALL) 20-connect-info $(CONFDIR)/update-motd.d/
+	$(CHMOD) -x $(CONFDIR)/update-motd.d/20-connect-info
+	# the bootloader theme
+	$(INSTALL) 06_mare_theme $(CONFDIR)/grub.d/
+	$(CHMOD) -x $(CONFDIR)/grub.d/06_mare_theme
+	# the data files
+	$(MAKE) -C data install DESTDIR=$(DESTDIR)
 	
 uninstall:
-	@echo "uninstall /usr/sbin/mare"
-	@rm -f $(prefix)/mare
-	@echo "uninstall /etc/update-motd.d/00-welcome-header"
-	@rm -f $(confdir)/update-motd.d/00-welcome-header
-	@echo "uninstall /etc/update-motd.d/10-system-info"
-	@rm -f $(confdir)/update-motd.d/10-system-info
-	@echo "uninstall /etc/update-motd.d/20-connect-info"
-	@rm -f $(confdir)/update-motd.d/20-connect-info
-	chmod +x /etc/update-motd.d/10-uname
-	@echo "uninstall /etc/grub.d/06_mare_theme"
-	@rm -f $(confdir)/grub.d/06_mare_theme
-	chmod +x $(confdir)/grub.d/05_debian_theme
-	@make -C data uninstall DESTDIR=$(DESTDIR)
-	@update-grub
+	# scripts of the shell
+	$(ECHO) "uninstall /usr/bin/mare"
+	$(REMOVE) -f $(BINDIR)/mare
+	$(MAKE) -C scripts uninstall DESTDIR=$(DESTDIR)
+	# The MOTD files
+	$(IF) [ -f /etc/update-motd.d/00-welcome-header ] \
+	$(THEN) \
+	$(ECHO) "uninstall /etc/update-motd.d/00-welcome-header" \
+	$(REMOVE) -f $(CONFDIR)/update-motd.d/00-welcome-header \
+	$(ECHO) "uninstall /etc/update-motd.d/10-system-info" \
+	$(REMOVE) -f $(CONFDIR)/update-motd.d/10-system-info \
+	$(ECHO) "uninstall /etc/update-motd.d/20-connect-info" \
+	$(REMOVE) -f $(CONFDIR)/update-motd.d/20-connect-info \
+	$(FI)
+	# the bootloader theme
+	$(IF) [ -f /etc/grub.d/06_mare_theme ] \
+	$(THEN) \
+	$(ECHO) "uninstall /etc/grub.d/06_mare_theme" \
+	$(REMOVE) -f $(CONFDIR)/grub.d/06_mare_theme \
+	$(FI)
+	# the data files
+	$(MAKE) -C data uninstall DESTDIR=$(DESTDIR)
