@@ -241,6 +241,14 @@ class ConfigurePackageSources():
 
 		subprocess.call(["apt", "update"])
 		subprocess.call(["apt", "-y", "upgrade"])
+
+def check_distribution():
+
+	distro = subprocess.getoutput("grep -m 1 -o 'Debian' /usr/share/mare/version.list")
+	if len(distro) == 0:
+		print("mare: you are using a different distribution GNU/Linux")
+	else:
+		shell()
 	
 def shell():
 
@@ -254,7 +262,7 @@ def shell():
 def main():
 
 	try:
-		shell()
+		check_distribution()
 	except KeyboardInterrupt:
 		sys.stdout.write("\n")
 		sys.exit(0)
