@@ -61,10 +61,7 @@ check_utils()
 {
 	local SH=0
 	local COREUTILS=0
-	local PERL=0
 	local PROCPS=0
-	local PCIITILS=0
-	local USBUTILS=0
 
 	if [ "$SHELL" = "/bin/bash" ]; then
 		bash --version | head -n1 | cut -d" " -f2-4
@@ -116,10 +113,6 @@ check_utils()
 
 	PROCPS=$(free --version | cut -d" " -f4)
 	echo "Procps ${PROCPS}"
-	PCIUTILS=$(lspci --version | cut -d" " -f3)
-	echo "PCI utils ${PCIUTILS}"
-	USBUTILS=$(lsusb --version | cut -d" " -f3)
-	echo "USB utils ${USBUTILS}"
 }
 
 check_shell()
