@@ -50,7 +50,7 @@ def configure_package_sources():
 	"""Configure package sources and update system."""
 		
 	# check the status of network interfaces
-	subprocess.call(["stifaces"])
+	state_ifaces()
 
 	# if this file exists, then delete it
 	base_list = os.path.exists("/etc/apt/sources.list.d/base.list")
@@ -58,6 +58,22 @@ def configure_package_sources():
 		os.remove("/etc/apt/sources.list.d/base.list")
 
 	edit_sources_list()
+
+def state_ifaces():
+	"""Check the status of network interfaces."""
+
+	state_wired_iface = os.system("ip a | awk 'FNR == 7 {print $9}'")
+	state_wireless_iface = os.system("ip a | awk 'FNR == 9 {print $9}'")
+
+	if state_wired_iface == "DOWN" or state_wireless_iface == "DOWN":
+		print("mare: network connection not established.")
+
+		if state_wired_iface == "DOWN":
+			print("Perhaps the network cable disconnected.")
+
+		if state_wireless_iface == "DOWN":
+			print("You may have entered the wrong access point name or password.")
+		sys.exit(1)
 
 def edit_sources_list():
 	check_entered_mirror()
