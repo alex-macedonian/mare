@@ -23,29 +23,21 @@ export LC_ALL
 
 edit_sudoers()
 {
-	local ROOT_USER=$(grep "root" /etc/passwd | cut -d":" -f1)
-	local SUDO_GROUP=$(grep "sudo" /etc/group | cut -d":" -f4)
 	local HOST_NAME=$(uname --nodename)
 	local USER_NAME=$(grep "video" /etc/group | cut -d":" -f4)
 
-	# check if root user exists
-	if [ -n "$ROOT_USER" ]; then
-		# check if regular user is added to sudo group
-		if [ -z "$SUDO_GROUP" ]; then
-			# define an alias for the host name
-			sed -i '13a\Host_Alias HOST = '${HOST_NAME}'' /etc/sudoers
-			# define an alias for the username
-			sed -i '15a\User_Alias ADMIN = '${USER_NAME}'' /etc/sudoers
-			# Grant access rights for a user with the alias ADMIN.
-			# The HOST=(ALL: ALL) ALL snippet means that a user with the alias
-			# ADMIN can use the sudo package to execute commands in root mode.
-			# The word HOST means the assigned hostname alias. The word ALL
-			# means "any command." Additional parameters (ALL: ALL) mean that
-			# a user with the alias ADMIN can run commands, like any other user
-			# any group.
-			sed -i '20a\ADMIN	HOST=(ALL:ALL) ALL' /etc/sudoers
-		fi
-	fi
+	# define an alias for the host name
+	sed -i '13a\Host_Alias HOST = '${HOST_NAME}'' /etc/sudoers
+	# define an alias for the username
+	sed -i '15a\User_Alias ADMIN = '${USER_NAME}'' /etc/sudoers
+	# Grant access rights for a user with the alias ADMIN.
+	# The HOST=(ALL: ALL) ALL snippet means that a user with the alias
+	# ADMIN can use the sudo package to execute commands in root mode.
+	# The word HOST means the assigned hostname alias. The word ALL
+	# means "any command." Additional parameters (ALL: ALL) mean that
+	# a user with the alias ADMIN can run commands, like any other user
+	# any group.
+	sed -i '20a\ADMIN	HOST=(ALL:ALL) ALL' /etc/sudoers
 }
 
 main()
