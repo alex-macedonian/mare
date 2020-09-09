@@ -21,6 +21,8 @@
 LC_ALL=C
 export LC_ALL
 
+COMMAND="$1"
+
 check_root()
 {
 	local USER_ID=$(id -u)
@@ -143,65 +145,56 @@ check_distribution()
 {
 	local DISTRO=$(awk '{if (($1 ~ "Debian") || ($1 ~ "LMDE")) {print $1}}' /usr/share/mare/version.list)
 
-	if [ -n "$DISTRO" ]; then
-		usage
-	else
+	if [ -z "$DISTRO" ]; then
 		echo "`basename $0:` you are using a different distribution GNU/Linux"
 		exit 1
 	fi
 }
 
-usage()
-{
-	local COMMAND="$1"
-
-	while [ "$#" -gt 0 ]; do
-		case "$1" in
-			-s | --sudo
-			/usr/lib/mare/sudo.sh
-			;;
-			-m | --motd )
-			/usr/lib/mare/motd.sh
-			;;
-			-r | --rest )
-			/usr/lib/mare/sources.py
-			/usr/lib/mare/netman.sh
-			/usr/lib/mare/grub.sh
-			/usr/lib/mare/optimization.sh
-			/usr/lib/mare/packages.sh
-			/usr/lib/mare/codecs.sh
-			/usr/lib/mare/dm.sh
-			/usr/lib/mare/nvidia.sh
-			;;
-			-h | --help )
-			cat /usr/share/mare/usage.list
-			exit 0 
-			;;
-			-v | --version )
-			cat /usr/share/mare/release.list
-			exit 0 
-			;;
-			* )
-			echo "`basename $0:` wrong key — «$1»"
-			echo "On command «mare --help» one can get additional information."
-			exit 1
-    		;;
-    	esac
-		break
-	done
-
-	if [ -z "$COMMAND" ]; then
-		echo "`basename $0:` indicate required action"
-		echo "For help using the program, enter the command:"
-		echo "mare -h or mare --help."
+while [ "$#" -gt 0 ]; do
+	case "$1" in
+		-s | --sudo )
+		/usr/lib/mare/sudo.sh
+		;;
+		-m | --motd )
+		/usr/lib/mare/motd.sh
+		;;
+		-r | --rest )
+		/usr/lib/mare/sources.py
+		/usr/lib/mare/netman.sh
+		/usr/lib/mare/grub.sh
+		/usr/lib/mare/optimization.sh
+		/usr/lib/mare/packages.sh
+		/usr/lib/mare/codecs.sh
+		/usr/lib/mare/dm.sh
+		/usr/lib/mare/nvidia.sh
+		;;
+		-h | --help )
+		cat /usr/share/mare/usage.list
+		exit 0 
+		;;
+		-v | --version )
+		cat /usr/share/mare/release.list
+		exit 0 
+		;;
+		-* )
+		echo "`basename $0:` wrong key — «$1»"
+		echo "On command «mare --help» one can get additional information."
 		exit 1
-	fi
-	shift
-}
+		;;
+		--* )
+		echo "`basename $0:` wrong key — «$1»"
+		echo "On command «mare --help» one can get additional information."
+		exit 1
+    	;;
+    esac
+	break
+done
 
-main()
-{
-	check_root
-}
-
-main
+if [ -z "$COMMAND" ]; then
+	echo "`basename $0:` indicate required action"
+	echo "For help using the program, enter the command:"
+	echo "mare -h or mare --help."
+	exit 1
+fi
+shift
