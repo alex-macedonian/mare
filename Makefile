@@ -24,10 +24,8 @@ build:
 	$(ECHO) "Nothing to build"
 	
 install:
-	# scripts of the shell
 	$(INSTALL) mare $(BINDIR)/
 	$(MAKE) -C scripts install DESTDIR=$(DESTDIR)
-	# the launch files
 	$(INSTALL) .bash_logout $(ROOTDIR)/
 	$(INSTALL) .bashrc $(ROOTDIR)/
 	$(INSTALL) .profile $(ROOTDIR)/
@@ -35,25 +33,20 @@ install:
 	$(INSTALL) .bashrc $(HOMEDIR)/
 	$(INSTALL) .profile $(HOMEDIR)/
 	$(SED) -i 's/01;31/01;32/' $(HOMEDIR)/.bashrc
-	# The MOTD files
 	$(INSTALL) 00-welcome-header $(CONFDIR)/update-motd.d/
 	$(CHMOD) -x $(CONFDIR)/update-motd.d/00-welcome-header
 	$(INSTALL) 10-system-info $(CONFDIR)/update-motd.d/
 	$(CHMOD) -x $(CONFDIR)/update-motd.d/10-system-info
 	$(INSTALL) 20-connect-info $(CONFDIR)/update-motd.d/
 	$(CHMOD) -x $(CONFDIR)/update-motd.d/20-connect-info
-	# the bootloader theme
 	$(INSTALL) 06_mare_theme $(CONFDIR)/grub.d/
 	$(CHMOD) -x $(CONFDIR)/grub.d/06_mare_theme
-	# the data files
 	$(MAKE) -C data install DESTDIR=$(DESTDIR)
 	
 uninstall:
-	# scripts of the shell
 	$(ECHO) "uninstall /usr/bin/mare"
 	$(REMOVE) -f $(BINDIR)/mare
 	$(MAKE) -C scripts uninstall DESTDIR=$(DESTDIR)
-	# The MOTD files
 	$(IF) [ -f /etc/update-motd.d/00-welcome-header ] \
 	$(THEN) \
 	$(ECHO) "uninstall /etc/update-motd.d/00-welcome-header" \
@@ -63,11 +56,9 @@ uninstall:
 	$(ECHO) "uninstall /etc/update-motd.d/20-connect-info" \
 	$(REMOVE) -f $(CONFDIR)/update-motd.d/20-connect-info \
 	$(FI)
-	# the bootloader theme
 	$(IF) [ -f /etc/grub.d/06_mare_theme ] \
 	$(THEN) \
 	$(ECHO) "uninstall /etc/grub.d/06_mare_theme" \
 	$(REMOVE) -f $(CONFDIR)/grub.d/06_mare_theme \
 	$(FI)
-	# the data files
 	$(MAKE) -C data uninstall DESTDIR=$(DESTDIR)
