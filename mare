@@ -131,7 +131,7 @@ check_shell()
 
 check_package_manager()
 {
-	local PACKAGE_MANAGER=$(grep "^m*a" /usr/share/mare/version.list)
+	local PACKAGE_MANAGER=$(grep "apt is not" /usr/share/mare/version.list)
 	
 	if [ -z "$PACKAGE_MANAGER" ]; then
 		check_distribution
@@ -150,6 +150,8 @@ check_distribution()
 		exit 1
 	fi
 }
+
+check_root
 
 while [ "$#" -gt 0 ]; do
 	case "$1" in
