@@ -76,7 +76,6 @@ def state_ifaces():
 		sys.exit(1)
 
 def edit_sources_list():
-	check_entered_mirror()
 	cdrom = subprocess.getoutput("grep -m 1 '# deb cdrom:' /etc/apt/sources.list")
 	url = check_entered_mirror()
 	codename = subprocess.getoutput("lsb_release -sc")
