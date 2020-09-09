@@ -47,18 +47,4 @@ uninstall:
 	$(ECHO) "uninstall /usr/bin/mare"
 	$(REMOVE) -f $(BINDIR)/mare
 	$(MAKE) -C scripts uninstall DESTDIR=$(DESTDIR)
-	$(IF) [ -f /etc/update-motd.d/00-welcome-header ] \
-	$(THEN) \
-	$(ECHO) "uninstall /etc/update-motd.d/00-welcome-header" \
-	$(REMOVE) -f $(CONFDIR)/update-motd.d/00-welcome-header \
-	$(ECHO) "uninstall /etc/update-motd.d/10-system-info" \
-	$(REMOVE) -f $(CONFDIR)/update-motd.d/10-system-info \
-	$(ECHO) "uninstall /etc/update-motd.d/20-connect-info" \
-	$(REMOVE) -f $(CONFDIR)/update-motd.d/20-connect-info \
-	$(FI)
-	$(IF) [ -f /etc/grub.d/06_mare_theme ] \
-	$(THEN) \
-	$(ECHO) "uninstall /etc/grub.d/06_mare_theme" \
-	$(REMOVE) -f $(CONFDIR)/grub.d/06_mare_theme \
-	$(FI)
 	$(MAKE) -C data uninstall DESTDIR=$(DESTDIR)
